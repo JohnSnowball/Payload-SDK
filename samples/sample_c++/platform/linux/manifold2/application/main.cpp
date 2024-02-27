@@ -71,6 +71,8 @@ start:
         << "| [d] Stereo vision view sample - display the stereo image                                         |\n"
         << "| [e] Run camera manager sample - you can test camera's functions interactively                    |\n"
         << "| [f] Start rtk positioning sample - you can receive rtk rtcm data when rtk signal is ok           |\n"
+        << "| [sv0] SAV subscription sample - get acceleration-200Hz/quaterion100Hz/vel&pos50Hz/battery10Hz/RCstick50Hz           |\n"
+        << "| [sv1] SAV flight control sample - control the drone to fly in position mode then switch to velocity mode, when finished, move backwards and RTL           |\n"
         << std::endl;
 
     std::cin >> inputChar;
@@ -104,6 +106,13 @@ start:
             }
 
             USER_LOG_INFO("Start rtk positioning sample successfully");
+            break;
+
+        case 'sv0':
+            Sav_RunSubscriptionSample();
+            break;
+        case 'sv1':
+            Sav_RunAutoControlSample();
             break;
         default:
             break;
