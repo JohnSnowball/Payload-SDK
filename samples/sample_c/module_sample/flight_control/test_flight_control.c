@@ -96,6 +96,7 @@ static void DjiTest_FlightControlGoHomeForceLandingSample(void);
 static void DjiTest_FlightControlVelocityControlSample(void);
 static void DjiTest_FlightControlArrestFlyingSample(void);
 static void DjiTest_FlightControlSample(E_DjiTestFlightCtrlSampleSelect flightCtrlSampleSelect);
+static void SAV_SubscriptionandControlSample(void);
 
 /* Exported functions definition ---------------------------------------------*/
 T_DjiReturnCode DjiTest_FlightControlRunSample(E_DjiTestFlightCtrlSampleSelect flightCtrlSampleSelect)
@@ -876,6 +877,10 @@ out:
     DjiTest_WidgetLogAppend("Flight control set-get-param sample end");
 }
 
+void SAV_SubscriptionandControlSample()
+{
+    //to wrtie
+}
 void DjiTest_FlightControlSample(E_DjiTestFlightCtrlSampleSelect flightCtrlSampleSelect)
 {
     switch (flightCtrlSampleSelect) {
@@ -901,6 +906,10 @@ void DjiTest_FlightControlSample(E_DjiTestFlightCtrlSampleSelect flightCtrlSampl
         }
         case E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_SET_GET_PARAM: {
             DjiTest_FlightControlSetGetParamSample();
+            break;
+        }
+        case SAV_SUB_AND_CTRL_SAMPLE: {
+            SAV_SubscriptionandControlSample();
             break;
         }
         default:

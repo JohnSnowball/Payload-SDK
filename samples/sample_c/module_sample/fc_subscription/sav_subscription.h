@@ -1,7 +1,7 @@
 /**
  ********************************************************************
- * @file    test_flight_control.h
- * @brief   This is the header file for "test_flight_control.c", defining the structure and
+ * @file    test_fc_subscription.h
+ * @brief   This is the header file for "test_fc_subscription.c", defining the structure and
  * (exported) function prototypes.
  *
  * @copyright (c) 2021 DJI. All rights reserved.
@@ -24,45 +24,32 @@
  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef TEST_FLIGHT_CONTROL_H
-#define TEST_FLIGHT_CONTROL_H
+#ifndef TEST_FC_SUBSCRIPTION_H
+#define TEST_FC_SUBSCRIPTION_H
 
 /* Includes ------------------------------------------------------------------*/
 #include "dji_typedef.h"
+#include "dji_fc_subscription.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* Exported constants --------------------------------------------------------*/
-typedef enum {
-    E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_TAKE_OFF_LANDING,
-    E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_TAKE_OFF_POSITION_CTRL_LANDING,
-    E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_TAKE_OFF_GO_HOME_FORCE_LANDING,
-    E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_TAKE_OFF_VELOCITY_CTRL_LANDING,
-    E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_ARREST_FLYING,
-    E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_SET_GET_PARAM,
-    SAV_SUB_AND_CTRL_SAMPLE
-} E_DjiTestFlightCtrlSampleSelect;
 
-#pragma pack(1)
-typedef struct {
-    dji_f32_t x;
-    dji_f32_t y;
-    dji_f32_t z;
-} T_DjiTestFlightControlVector3f; // pack(1)
-#pragma pack()
 
 /* Exported types ------------------------------------------------------------*/
 
+
 /* Exported functions --------------------------------------------------------*/
-T_DjiReturnCode DjiTest_FlightControlRunSample(E_DjiTestFlightCtrlSampleSelect flightCtrlSampleSelect);
-void DjiTest_FlightControlVelocityAndYawRateCtrl(const T_DjiTestFlightControlVector3f offsetDesired, float yawRate,
-                                                 uint32_t timeMs);
+T_DjiReturnCode DjiTest_FcSubscriptionStartService(void);
+T_DjiReturnCode DjiTest_FcSubscriptionRunSample(void);
+T_DjiReturnCode DjiTest_FcSubscriptionDataShowTrigger(void);
+T_DjiReturnCode DjiTest_FcSubscriptionGetTotalSatelliteNumber(uint8_t *number);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // TEST_FLIGHT_CONTROL_H
+#endif // TEST_FC_SUBSCRIPTION_H
 /************************ (C) COPYRIGHT DJI Innovations *******END OF FILE******/

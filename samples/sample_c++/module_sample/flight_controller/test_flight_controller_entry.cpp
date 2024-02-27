@@ -62,6 +62,8 @@ start:
         << "| [7] Waypoint 2.0 sample - run airline mission by settings (only support on M300 RTK)             |\n"
         << "| [8] Waypoint 3.0 sample - run airline mission by kmz file (not support on M300 RTK)              |\n"
         << "| [9] Interest point sample - run interest point mission by settings (only support on M3E/M3T)     |\n"
+        << "| [sav] SAV subscription&control sample - get acceleration-200Hz/quaterion100Hz/vel&pos50Hz/battery10Hz/RCstick50Hz        |\n" 
+        << "| control the drone to fly in position mode then switch to velocity mode, when finished, move backwards and RTL             |\n"
         << std::endl;
 
     std::cin >> inputSelectSample;
@@ -95,6 +97,9 @@ start:
             break;
         case '9':
             DjiTest_InterestPointRunSample();
+            break;
+        case 'sav':
+            DjiTest_FlightControlRunSample(SAV_SUB_AND_CTRL_SAMPLE);
             break;
         case 'q':
             break;
