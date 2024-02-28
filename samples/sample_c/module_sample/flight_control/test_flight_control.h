@@ -42,6 +42,7 @@ typedef enum {
     E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_TAKE_OFF_VELOCITY_CTRL_LANDING,
     E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_ARREST_FLYING,
     E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_SET_GET_PARAM,
+    SAV_SUB_AND_CTRL_SAMPLE
 } E_DjiTestFlightCtrlSampleSelect;
 
 #pragma pack(1)
@@ -57,6 +58,9 @@ typedef struct {
 /* Exported functions --------------------------------------------------------*/
 T_DjiReturnCode DjiTest_FlightControlRunSample(E_DjiTestFlightCtrlSampleSelect flightCtrlSampleSelect);
 void DjiTest_FlightControlVelocityAndYawRateCtrl(const T_DjiTestFlightControlVector3f offsetDesired, float yawRate,
+                                                 uint32_t timeMs);
+
+void SAV_ControlVelocity_Yawrate_BodyCoord(const T_DjiTestFlightControlVector3f offsetDesired, float yawRate,
                                                  uint32_t timeMs);
 
 #ifdef __cplusplus

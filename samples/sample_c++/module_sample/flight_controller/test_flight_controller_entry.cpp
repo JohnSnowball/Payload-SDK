@@ -96,6 +96,9 @@ start:
         case '9':
             DjiTest_InterestPointRunSample();
             break;
+        case 'sav':
+            DjiTest_FlightControlRunSample(SAV_SUB_AND_CTRL_SAMPLE);
+            break;
         case 'q':
             break;
         default:

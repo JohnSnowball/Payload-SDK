@@ -63,6 +63,13 @@ static T_DjiFcSubscriptionDisplaymode DjiTest_FlightControlGetValueOfDisplayMode
 static T_DjiFcSubscriptionHeightFusion DjiTest_FlightControlGetValueOfHeightFusion(void);
 static T_DjiFcSubscriptionQuaternion DjiTest_FlightControlGetValueOfQuaternion(void);
 static T_DjiFcSubscriptionPositionFused DjiTest_FlightControlGetValueOfPositionFused(void);
+
+static T_DjiFcSubscriptionAccelerationRaw DjiTest_FlightControlGetValueOfAcceleration(void);
+static T_DjiFcSubscriptionVelocity DjiTest_FlightControlGetValueOfVelocity(void);
+static T_DjiFcSubscriptionWholeBatteryInfo DjiTest_FlightControlGetValueOfBattery(void);
+static T_DjiFcSubscriptionEscData DjiTest_FlightControlGetValueOfESCData(void);
+static T_DjiFcSubscriptionRCWithFlagData DjiTest_FlightControlGetValueOfRC(void);
+
 static dji_f32_t DjiTest_FlightControlGetValueOfRelativeHeight(void);
 static bool DjiTest_FlightControlMotorStartedCheck(void);
 static bool DjiTest_FlightControlTakeOffInAirCheck(void);
@@ -89,6 +96,7 @@ static bool DjiTest_FlightControlMoveByPositionOffset(T_DjiTestFlightControlVect
                                                       float posThresholdInM,
                                                       float yawThresholdInDeg);
 static T_DjiReturnCode DjiTest_FlightControlInit(void);
+static T_DjiReturnCode SAV_FlightControlInit(void);//declare here
 static T_DjiReturnCode DjiTest_FlightControlDeInit(void);
 static void DjiTest_FlightControlTakeOffLandingSample(void);
 static void DjiTest_FlightControlPositionControlSample(void);
@@ -96,6 +104,7 @@ static void DjiTest_FlightControlGoHomeForceLandingSample(void);
 static void DjiTest_FlightControlVelocityControlSample(void);
 static void DjiTest_FlightControlArrestFlyingSample(void);
 static void DjiTest_FlightControlSample(E_DjiTestFlightCtrlSampleSelect flightCtrlSampleSelect);
+static void SAV_SubscriptionandControlSample(void);
 
 /* Exported functions definition ---------------------------------------------*/
 T_DjiReturnCode DjiTest_FlightControlRunSample(E_DjiTestFlightCtrlSampleSelect flightCtrlSampleSelect)
@@ -105,9 +114,18 @@ T_DjiReturnCode DjiTest_FlightControlRunSample(E_DjiTestFlightCtrlSampleSelect f
     USER_LOG_DEBUG("Init flight Control Sample");
     DjiTest_WidgetLogAppend("Init flight Control Sample");
 
+ /* defaut codes
     returnCode = DjiTest_FlightControlInit();
     if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
         USER_LOG_ERROR("Init flight Control sample failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+*/
+
+    /*all subscriptions are done here, during initialize part, need to moniter CPU usage*/
+    returnCode = SAV_FlightControlInit();
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Init SAV sample failed,error code:0x%08llX", returnCode);
         return returnCode;
     }
 
@@ -216,6 +234,188 @@ T_DjiReturnCode DjiTest_FlightControlInit(void)
         return returnCode;
     }
 
+    returnCode = DjiFlightController_RegJoystickCtrlAuthorityEventCallback(
+        DjiTest_FlightControlJoystickCtrlAuthSwitchEventCallback);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS && returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_NONSUPPORT) {
+        USER_LOG_ERROR("Register joystick control authority event callback failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
+}
+
+T_DjiReturnCode SAV_FlightControlInit(void)
+{
+    /*subscription : 1. acceleration 200Hz 
+                     2. quaterion 100Hz 
+                     3. vel&pos 50Hz 
+                     4. battery 5-10Hz
+                     5. RCstick 50Hz 
+                     6. to do: blade or patch info(vel&pos) from stereo camera
+                     7. thrust 50Hz retrive from esc data
+    */
+    T_DjiReturnCode returnCode;
+    T_DjiFlightControllerRidInfo ridInfo = {0};
+
+    s_osalHandler = DjiPlatform_GetOsalHandler();
+    if (!s_osalHandler) return DJI_ERROR_SYSTEM_MODULE_CODE_UNKNOWN;
+
+    ridInfo.latitude = 22.542812;
+    ridInfo.longitude = 113.958902;
+    ridInfo.altitude = 10;
+
+    //initialize by defaut
+    returnCode = DjiFlightController_Init(ridInfo);
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Init flight controller module failed, error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    //initialize subscription
+    returnCode = DjiFcSubscription_Init();
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Init data subscription module failed, error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    /*! subscribe fc data */
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_STATUS_FLIGHT,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_10_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic flight status failed, error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_STATUS_DISPLAYMODE,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_10_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic display mode failed, error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    //ultra sonic height, used during landing, 10hz
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_HEIGHT_FUSION,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic avoid data failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    //acceleration in IMU frame, m/s2, highest frequency, 200hz, used for determine contact
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ACCELERATION_RAW,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_200_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic acceleration failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+
+    //attitude, need to be converted in to roll/pitch/yaw, 100hz, might be used to determine contact
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_QUATERNION,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_100_HZ,
+                                                  NULL);
+
+    if (returnCode == DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+    } else if (returnCode == DJI_ERROR_SUBSCRIPTION_MODULE_CODE_TOPIC_DUPLICATE) {
+        USER_LOG_WARN("Subscribe topic quaternion duplicate");
+    } else {
+        USER_LOG_ERROR("Subscribe topic quaternion failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    //position, lat/lon/alt/sat number, 50Hz
+    //this data is strongly base on GPS signal, everytime we use this should check if GPS signal is good, satellite number > 12
+    //need to do: enable RTK for M350!!!
+    /* E_DjiFlightControllerRtkPositionEnableStatus == 1*/
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_POSITION_FUSED,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic position fused failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    //altitude above sea level, along with altitude, 50Hz
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ALTITUDE_FUSED,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic altitude fused failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    //velocity in m/s, used for safety check, 50Hz
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_VELOCITY,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic velocity failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+    
+    //RC stick XYZR and connection state, used for safety check, 50Hz
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_RC_WITH_FLAG_DATA,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic RC failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    //battery info, used for safety check, 5Hz
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_BATTERY_INFO,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic BATTERY failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    /*calculate average throttle from esc data */
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ESC_DATA,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic ESC failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    //home LAT/LON when last takeoff, lowest frequency
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_HOME_POINT_INFO,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic altitude of home point failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    //home altitude above sea level recorded when last takeoff, lowest frequency
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ALTITUDE_OF_HOMEPOINT,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic altitude of home point failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    //essentiel for all modes
     returnCode = DjiFlightController_RegJoystickCtrlAuthorityEventCallback(
         DjiTest_FlightControlJoystickCtrlAuthSwitchEventCallback);
 
@@ -876,6 +1076,206 @@ out:
     DjiTest_WidgetLogAppend("Flight control set-get-param sample end");
 }
 
+void SAV_SubscriptionandControlSample()
+{
+    /*subscription : 1. acceleration 200Hz 
+                     2. quaterion 100Hz 
+                     3. vel&pos 50Hz 
+                     4. battery 10Hz
+                     5. RCstick 50Hz 
+                     6. blade or patch info(vel&pos) from stereo camera
+                     7. thrust 50Hz
+
+      control :      1  obtain joystick control
+                     2. takeoff
+            Phase1   3. set joystick mode, mainly pos_ctrl
+                     4. control the drone to fly towards the desired position(assume as the blade tip)
+            Phase2   5. change joystick mode, velocity mode mainly, need for more tests
+                     6. fly forwards according to the given velocity commandes
+            Phase3   7. fly backwards 
+                     8. RTL
+                     9. release joystick control authority
+
+      safety check:  1. velocity check
+                     2. attitude check
+                     3. thrust check
+                     4. acceleration check(contact)
+
+    All control&safety check running in 30-50 Hz, depends on CPU usage(core stability).
+    */
+    T_DjiReturnCode returnCode;
+
+    /*Fetch values from subscribed topic*/
+
+
+    //DJI_FC_SUBSCRIPTION_TOPIC_STATUS_FLIGHT, 10Hz
+
+    //acceleration in IMU frame, m/s2, highest frequency, 200hz, used for determine contact
+    T_DjiFcSubscriptionAccelerationRaw Acc_raw = DjiTest_FlightControlGetValueOfAcceleration();
+    float acc_x = Acc_raw.x;
+    float acc_y = Acc_raw.y;
+    float acc_z = Acc_raw.z;
+
+    //attitude, need to be converted in to roll/pitch/yaw, 100hz, might be used to determine contact
+    T_DjiFcSubscriptionQuaternion currentQuaternion = DjiTest_FlightControlGetValueOfQuaternion();
+    T_DjiTestFlightControlVector3f eulerAngle = DjiTest_FlightControlQuaternionToEulerAngle(currentQuaternion);
+    float pitchInDeg = 57.3f*eulerAngle.x;
+    float rollInDeg = 57.3f*eulerAngle.y;
+    float yawInDeg = 57.3f*eulerAngle.z;
+
+    //position, lat/lon/alt/sat number, 50Hz
+    //this data is strongly base on GPS signal, everytime we use this should check if GPS signal is good, satellite number > 12
+    //need to do: enable RTK for M350!!!
+    /* E_DjiFlightControllerRtkPositionEnableStatus == 1*/
+    T_DjiFcSubscriptionPositionFused currentGPSPosition = DjiTest_FlightControlGetValueOfPositionFused();
+    float lat_curr = currentGPSPosition.latitude;
+    float lon_curr = currentGPSPosition.longitude;
+    float curr_alt = currentGPSPosition.altitude;
+    float satNum = currentGPSPosition.visibleSatelliteNumber;
+        
+
+    //altitude above sea level, along with altitude, 50Hz
+
+
+    //velocity in m/s, used for safety check, 50Hz
+    T_DjiFcSubscriptionVelocity currentVelocity = DjiTest_FlightControlGetValueOfVelocity();
+    float vel_N = currentVelocity.data.x;
+    float vel_E = currentVelocity.data.y;
+    float vel_U = currentVelocity.data.z;
+    
+    //RC stick XYZR and connection state, used for safety check, 50Hz
+    T_DjiFcSubscriptionRCWithFlagData RC_infos = DjiTest_FlightControlGetValueOfRC();
+    float stick_pitch = RC_infos.pitch;
+    float stick_roll = RC_infos.roll;
+    float stick_yaw = RC_infos.yaw;
+    float stick_throttle = RC_infos.throttle;
+    float gnd_signal = RC_infos.flag.groundConnected;
+
+    //battery info, used for safety check, 5Hz
+    T_DjiFcSubscriptionWholeBatteryInfo currBattery = DjiTest_FlightControlGetValueOfBattery();
+    float voltage_whole = currBattery.voltage;
+    float percent_whole = currBattery.percentage;
+
+    /*calculate average throttle from esc data, here we use rotation speed instead, unit in RPM */
+    T_DjiFcSubscriptionEscData ESC_all = DjiTest_FlightControlGetValueOfESCData();
+    float speed0 = ESC_all.esc[0].speed;
+    float speed1 = ESC_all.esc[1].speed;
+    float speed2 = ESC_all.esc[2].speed;
+    float speed3 = ESC_all.esc[3].speed;
+    float speed_average = (speed0+speed1+speed2+speed3)/4;
+
+    //home altitude above sea level recorded when last takeoff, lowest frequency
+
+
+    USER_LOG_INFO("SAV sample start");
+    DjiTest_WidgetLogAppend("SAV sample start");
+
+    //todo: make all these control steps in a big loop and check in every loop if the pilot wants to takeover control authority.
+
+    /* first step as without authority, we can' start the sample*/
+    USER_LOG_INFO("--> Step 1: Obtain joystick control authority.");
+    DjiTest_WidgetLogAppend("--> Step 1: Obtain joystick control authority.");
+    returnCode = DjiFlightController_ObtainJoystickCtrlAuthority();
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Obtain joystick authority failed, error code: 0x%08X", returnCode);
+        goto out;
+    }
+    s_osalHandler->TaskSleepMs(1000);
+
+    /*takeoff, in real flight we don't need it for recent future */
+    USER_LOG_INFO("--> Step 2: Take off\r\n");
+    DjiTest_WidgetLogAppend("--> Step 2: Take off\r\n");
+    if (!DjiTest_FlightControlMonitoredTakeoff()) {
+        USER_LOG_ERROR("Take off failed");
+        goto out;
+    }
+    USER_LOG_INFO("Successful take off\r\n");
+    DjiTest_WidgetLogAppend("Successful take off\r\n");
+
+
+    /* fly towards blade(virtuel), this depends on how the desired position is given, relative to drone or absolute in NED frame?
+       here we assume the position is given by absolute NED frame
+    */
+
+
+   //move fast
+    USER_LOG_INFO("--> Phase1 - Pos1: Move to north:10(m), east:20(m), up:20(m) , yaw:15(degree) from current point");
+    DjiTest_WidgetLogAppend("--> Phase1 - Pos1: Move to north:10(m), east:20(m), up:20(m) , yaw:15(degree) from current pointt");
+    if (!DjiTest_FlightControlMoveByPositionOffset((T_DjiTestFlightControlVector3f) {10, 20, 20}, 15, 0.8, 1)) {
+        USER_LOG_ERROR("Phase1 - Pos1 failed");
+        goto out;
+    };
+
+    //move in another direction
+    USER_LOG_INFO("--> Phase1 - Pos2: Move to north:2(m), east:3(m), up:0.5(m) , yaw:-10(degree) from current point");
+    DjiTest_WidgetLogAppend(
+        "--> Phase1 - Pos2: Move to north:2(m), east:3(m), up:0.5(m) , yaw:-10(degree) from current point");
+    if (!DjiTest_FlightControlMoveByPositionOffset((T_DjiTestFlightControlVector3f) {2, 3, 0.5}, -10, 0.8, 1)) {
+        USER_LOG_ERROR("Phase1 - Pos2 failed");
+        goto out;
+    };
+
+    //adjust slightly for re-positioning, target on patch right now
+    USER_LOG_INFO("--> Phase1 - Pos3: Move to north:0.05(m), east:-0.12(m), up:0.02(m) , yaw:0.5(degree) from current point");
+    DjiTest_WidgetLogAppend("--> Phase1 - Pos3: Move to north:0.05(m), east:-0.12(m), up:0.02(m) , yaw:0.5(degree) from current point");
+    if (!DjiTest_FlightControlMoveByPositionOffset((T_DjiTestFlightControlVector3f) {0.05, -0.12, 0.02}, 0.5, 0.1, 1)) {
+        USER_LOG_ERROR("Phase1 - Pos3 failed");
+        goto out;
+    }
+
+
+    /*here comes the phase2
+    1. Assume the patch is right before the drone and stable. In real flight, could make a PID here to calculate desired velocity.
+    to do: 1. Assume the patch is vibrating, the target position is moving
+           2. Apply wind to see if velocity control works or if we need switch back to position control
+           3. Apply pitch and velocity bounds to see if it's dangerous
+           4. The ending condition should be a maximum time or high acceleration detection 
+    */
+    USER_LOG_INFO("--> Phase2 - Vel1: (0.2 m/s, 0 m/s, 0m/s, 0°/s) Move forward for 5 seconds");
+    DjiTest_WidgetLogAppend("--> --> Phase2 - Vel1: (0.2 m/s, 0 m/s, 0m/s, 0°/s) Move forward for 5 seconds");
+    SAV_ControlVelocity_Yawrate_BodyCoord((T_DjiTestFlightControlVector3f) {0.2, 0, 0}, 0, 5000);
+
+
+    //if contacted, fly backwards faster for 3 seconds
+    USER_LOG_INFO("--> Phase2 - Vel2: (-1 m/s, 0 m/s, 0m/s, 0°/s) Move forward for 3 seconds");
+    DjiTest_WidgetLogAppend("--> --> Phase2 - Vel2: (-1 m/s, 0 m/s, 0m/s, 0°/s) Move forward for 3 seconds");
+    SAV_ControlVelocity_Yawrate_BodyCoord((T_DjiTestFlightControlVector3f) {-1, 0, 0}, 0, 3000);
+
+
+    //switch to position control mode and RTL
+    //to do: complet RTL
+
+    USER_LOG_INFO("--> Phase3 - Pos1: Move to north:-10(m), east:-20(m), up:-20(m) , yaw:180(degree) from current point");
+    DjiTest_WidgetLogAppend("--> --> Phase3 - Pos1: Move to north:-10(m), east:-20(m), up:-20(m) , yaw:180(degree) from current point");
+    if (!DjiTest_FlightControlMoveByPositionOffset((T_DjiTestFlightControlVector3f) {-10, -20, -20}, 180, 0.8, 1)) {
+        USER_LOG_ERROR("Phase1 - Pos1 failed");
+        goto out;
+    };
+
+
+    USER_LOG_INFO("--> Phase3: Landing\r\n");
+    DjiTest_WidgetLogAppend("--> Phase3: Landing\r\n");
+    if (!DjiTest_FlightControlMonitoredLanding()) {
+        USER_LOG_ERROR("Landing failed");
+        goto out;
+    }
+    USER_LOG_INFO("Successful landing\r\n");
+    DjiTest_WidgetLogAppend("Successful landing\r\n");
+
+    USER_LOG_INFO("--> Phase3 - ending: Release joystick authority");
+    DjiTest_WidgetLogAppend("--> Phase3 - ending: Release joystick authority");
+    returnCode = DjiFlightController_ReleaseJoystickCtrlAuthority();
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Release joystick authority failed, error code: 0x%08X", returnCode);
+        goto out;
+    }
+
+out:
+    USER_LOG_INFO("SAV sample end");
+    DjiTest_WidgetLogAppend("SAV sample end");
+    
+}
+
 void DjiTest_FlightControlSample(E_DjiTestFlightCtrlSampleSelect flightCtrlSampleSelect)
 {
     switch (flightCtrlSampleSelect) {
@@ -901,6 +1301,10 @@ void DjiTest_FlightControlSample(E_DjiTestFlightCtrlSampleSelect flightCtrlSampl
         }
         case E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_SET_GET_PARAM: {
             DjiTest_FlightControlSetGetParamSample();
+            break;
+        }
+        case SAV_SUB_AND_CTRL_SAMPLE: {
+            SAV_SubscriptionandControlSample();
             break;
         }
         default:
@@ -988,6 +1392,24 @@ T_DjiFcSubscriptionHeightFusion DjiTest_FlightControlGetValueOfHeightFusion(void
     return heightFusion;
 }
 
+T_DjiFcSubscriptionAccelerationRaw DjiTest_FlightControlGetValueOfAcceleration(void)
+{
+    T_DjiReturnCode djiStat;
+    T_DjiFcSubscriptionAccelerationRaw Acceleration_raw = {0};
+    T_DjiDataTimestamp Acc_rawTimestamp = {0};
+
+    djiStat = DjiFcSubscription_GetLatestValueOfTopic(DJI_FC_SUBSCRIPTION_TOPIC_ACCELERATION_RAW,
+                                                      (uint8_t *) &Acceleration_raw,
+                                                      sizeof(T_DjiFcSubscriptionAccelerationRaw),
+                                                      &Acc_rawTimestamp);
+
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Get value of topic acceleration error, error code: 0x%08X", djiStat);
+    } 
+
+    return Acceleration_raw;
+}
+
 T_DjiFcSubscriptionQuaternion DjiTest_FlightControlGetValueOfQuaternion(void)
 {
     T_DjiReturnCode djiStat;
@@ -1023,14 +1445,81 @@ T_DjiFcSubscriptionPositionFused DjiTest_FlightControlGetValueOfPositionFused(vo
 
     if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
         USER_LOG_ERROR("Get value of topic position fused error, error code: 0x%08X", djiStat);
-    } else {
-        USER_LOG_DEBUG("Timestamp: millisecond %u microsecond %u.", positionFusedTimestamp.millisecond,
-                       positionFusedTimestamp.microsecond);
-        USER_LOG_DEBUG("PositionFused: %f, %f,%f,%d.", positionFused.latitude, positionFused.longitude,
-                       positionFused.altitude, positionFused.visibleSatelliteNumber);
-    }
+    } 
 
     return positionFused;
+}
+
+T_DjiFcSubscriptionVelocity DjiTest_FlightControlGetValueOfVelocity(void)
+{
+    T_DjiReturnCode djiStat;
+    T_DjiFcSubscriptionVelocity rt_Velocity = {0};
+    T_DjiDataTimestamp rt_VelocityTimestamp = {0};
+
+    djiStat = DjiFcSubscription_GetLatestValueOfTopic(DJI_FC_SUBSCRIPTION_TOPIC_VELOCITY,
+                                                      (uint8_t *) &rt_Velocity,
+                                                      sizeof(T_DjiFcSubscriptionVelocity),
+                                                      &rt_VelocityTimestamp);
+
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Get value of topic real-time velocity  error, error code: 0x%08X", djiStat);
+    } 
+
+    return rt_Velocity;
+}
+
+T_DjiFcSubscriptionWholeBatteryInfo DjiTest_FlightControlGetValueOfBattery(void)
+{
+    T_DjiReturnCode djiStat;
+    T_DjiFcSubscriptionWholeBatteryInfo battInfo = {0};
+    T_DjiDataTimestamp battInfoTimestamp = {0};
+
+    djiStat = DjiFcSubscription_GetLatestValueOfTopic(DJI_FC_SUBSCRIPTION_TOPIC_BATTERY_INFO,
+                                                      (uint8_t *) &battInfo,
+                                                      sizeof(T_DjiFcSubscriptionWholeBatteryInfo),
+                                                      &battInfoTimestamp);
+
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Get value of topic whole battery info error, error code: 0x%08X", djiStat);
+    } 
+
+    return battInfo;
+}
+
+T_DjiFcSubscriptionEscData DjiTest_FlightControlGetValueOfESCData(void)
+{
+    T_DjiReturnCode djiStat;
+    T_DjiFcSubscriptionEscData  ESC_all = {0};
+    T_DjiDataTimestamp ESC_allTimestamp = {0};
+
+    djiStat = DjiFcSubscription_GetLatestValueOfTopic(DJI_FC_SUBSCRIPTION_TOPIC_ESC_DATA,
+                                                      (uint8_t *) &ESC_all,
+                                                      sizeof(T_DjiFcSubscriptionEscData),
+                                                      &ESC_allTimestamp);
+
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Get value of topic whole battery info error, error code: 0x%08X", djiStat);
+    } 
+
+    return ESC_all;
+}
+
+T_DjiFcSubscriptionRCWithFlagData DjiTest_FlightControlGetValueOfRC(void)
+{
+    T_DjiReturnCode djiStat;
+    T_DjiFcSubscriptionRCWithFlagData  RC_all = {0};
+    T_DjiDataTimestamp RC_allTimestamp = {0};
+
+    djiStat = DjiFcSubscription_GetLatestValueOfTopic(DJI_FC_SUBSCRIPTION_TOPIC_RC_WITH_FLAG_DATA,
+                                                      (uint8_t *) &RC_all,
+                                                      sizeof(T_DjiFcSubscriptionRCWithFlagData),
+                                                      &RC_allTimestamp);
+
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Get value of topic whole battery info error, error code: 0x%08X", djiStat);
+    } 
+
+    return RC_all;
 }
 
 dji_f32_t DjiTest_FlightControlGetValueOfRelativeHeight(void)
@@ -1478,6 +1967,48 @@ void DjiTest_FlightControlVelocityAndYawRateCtrl(const T_DjiTestFlightControlVec
         DJI_FLIGHT_CONTROLLER_VERTICAL_VELOCITY_CONTROL_MODE,
         DJI_FLIGHT_CONTROLLER_YAW_ANGLE_RATE_CONTROL_MODE,
         DJI_FLIGHT_CONTROLLER_HORIZONTAL_GROUND_COORDINATE,
+        DJI_FLIGHT_CONTROLLER_STABLE_CONTROL_MODE_ENABLE,
+    };
+
+    DjiFlightController_SetJoystickMode(joystickMode);
+    T_DjiFlightControllerJoystickCommand joystickCommand = {offsetDesired.x, offsetDesired.y, offsetDesired.z,
+                                                            yawRate};
+
+    while (elapsedTimeInMs <= timeMs) {
+        DjiFlightController_ExecuteJoystickAction(joystickCommand);
+        osalHandler->TaskSleepMs(2);
+        osalHandler->GetTimeMs(&currentTime);
+        elapsedTimeInMs = currentTime - originTime;
+    }
+}
+
+void SAV_ControlVelocity_Yawrate_BodyCoord(const T_DjiTestFlightControlVector3f offsetDesired, float yawRate,
+                                                 uint32_t timeMs)
+{
+    T_DjiOsalHandler *osalHandler = DjiPlatform_GetOsalHandler();
+    uint32_t originTime = 0;
+    uint32_t currentTime = 0;
+    uint32_t elapsedTimeInMs = 0;
+    osalHandler->GetTimeMs(&originTime);
+    osalHandler->GetTimeMs(&currentTime);
+    elapsedTimeInMs = currentTime - originTime;
+    
+    /*
+    Mode chosen reasons based on assumption before field test:
+    1. For horizontal and vertical movement in measurement phase, velocity control could be better than position control.
+       Patch position is detected, following speed could be adjusted by doing Desired_vel = (Desired_pos - Current_pos)*PID.
+       Apply limits to Desired_vel as [-0.15m/s, 0.15m/s]. Apply attitude check as (if pitch > 10°, brake slowly).
+       Attitude control could be faster! However could be more easy to get drift by wind.
+       Thus velocity control + vel bounds + attitude limit check. 
+    2. Yaw angle use rate control, wouldn't exerce extra force when yaw drfited by wind.
+    3. Use Body frame as it's very close to the blade surface, target position is always given relatively.
+    */
+
+    T_DjiFlightControllerJoystickMode joystickMode = {
+        DJI_FLIGHT_CONTROLLER_HORIZONTAL_VELOCITY_CONTROL_MODE, 
+        DJI_FLIGHT_CONTROLLER_VERTICAL_VELOCITY_CONTROL_MODE,
+        DJI_FLIGHT_CONTROLLER_YAW_ANGLE_RATE_CONTROL_MODE,
+        DJI_FLIGHT_CONTROLLER_HORIZONTAL_BODY_COORDINATE,
         DJI_FLIGHT_CONTROLLER_STABLE_CONTROL_MODE_ENABLE,
     };
 
