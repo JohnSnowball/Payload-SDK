@@ -60,6 +60,9 @@ T_DjiReturnCode DjiTest_FlightControlRunSample(E_DjiTestFlightCtrlSampleSelect f
 void DjiTest_FlightControlVelocityAndYawRateCtrl(const T_DjiTestFlightControlVector3f offsetDesired, float yawRate,
                                                  uint32_t timeMs);
 
+void SAV_ControlVelocity_Yawrate_BodyCoord(const T_DjiTestFlightControlVector3f offsetDesired, float yawRate,
+                                                 uint32_t timeMs);
+
 #ifdef __cplusplus
 }
 #endif
