@@ -1105,8 +1105,44 @@ void SAV_SubscriptionandControlSample()
     */
     T_DjiReturnCode returnCode;
 
-    /*Fetch values from subscribed topic*/
 
+    /*
+    todo: make all these control steps in a big loop and check in each loop if the pilot wants to takeover control authority.
+        while((!mission_done or !RC_take_authority or !strong_wind)&&slower_than_50Hz)
+        {
+            1. update drone status;
+
+            2. check if:
+                i.     attitude& velocity& throttle exceeded bounds --> (strong_wind == true) and break;
+                ii.    RC takes over control --> (RC_take_authority == true) and break;
+                iii.   acceleration check --> contacted == true;
+                iiii.  start a single measurement command by pilot --> start_single_measure == true;
+                iiiii. Done command from pilot --> (mission_done == true) and break;
+        
+            3. control:
+                if(far away from blade)
+                    {   control phase1 --> approach, trajectory generation}
+                elseif(close to the blade && start_single_measure) 
+                    {   control phase2 --> fly slowly towards the patch until contact;
+                        if(!contacted)
+                            {   continue;}
+                        elseif(contacted) 
+                            {brake and fly backwards; start_single_measure == false}
+                }
+                elseif(close to the blade && !start_single_measure){ stabilize }
+                else(reserved case) {stabilize and wait}
+        }
+
+        if(mission_done) release RC authority ;
+
+        if(RC_take_authority) release RC authority;
+
+        if(strong_wind) fly backwards for 5 sec -> stabilize and warn pilot 
+    */
+
+
+
+    /*Fetch values from subscribed topic*/
 
     //DJI_FC_SUBSCRIPTION_TOPIC_STATUS_FLIGHT, 10Hz
 
@@ -1170,7 +1206,7 @@ void SAV_SubscriptionandControlSample()
     USER_LOG_INFO("SAV sample start");
     DjiTest_WidgetLogAppend("SAV sample start");
 
-    //todo: make all these control steps in a big loop and check in every loop if the pilot wants to takeover control authority.
+
 
     /* first step as without authority, we can' start the sample*/
     USER_LOG_INFO("--> Step 1: Obtain joystick control authority.");
