@@ -35,11 +35,11 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 // ATTENTION: User must goto https://developer.dji.com/user/apps/#all to create your own dji sdk application, get dji sdk application
 // information then fill in the application information here.
-#define USER_APP_NAME               "PSDK"
-#define USER_APP_ID                 "1143234"
-#define USER_APP_KEY                "7ac212ed583983f3125fa0165e33d2bfa1acbe182260e9f5e406bc3b9a794bf0"
-#define USER_APP_LICENSE            "lqFIlTbR1HI2xu1ZzXhp16JQycMYcIccGxRvUpysaBJhAoAgfUhgyj/Z5jLlnxkHafFzmNU7WgSrIOxCCaUc3bctXDpgedPwyy0B3zDCYuXvklz+gAUgU3350N9RTldY2icDTWXyEqwnqlV2ffo5LpGsbcHTq8hZ11ZFWlmAAw5QpI9ZJ9VwRLiefxjKFitMOkMFvNksU42pErMiBb0/lJ2e9oGs58Yz0rm8Fj0OJycQlTjoJdoj6hcA86NVaQ86pZq9CpozugsBjLXfg+XxkTg25rMdpP6cybf7PBISmghrGc0yB7Tjpkk2yV5o9hXDMiK1n+y2LBtRikZKk4LaGg=="
-#define USER_DEVELOPER_ACCOUNT      "yc@supairvision.com"
+#define USER_APP_NAME               "psdkAppp"
+#define USER_APP_ID                 "130002"
+#define USER_APP_KEY                "f41a8a6aad611583d55e5eba56f1a490"
+#define USER_APP_LICENSE            "zjKXlHtNa0KQMrHIEw2ca/pMn+4n8JKiW1YQqFTCJop5WxnhOs5S1w+MwdZK9XoQL3IOvlGOZOVWKYYQGFEyo8j/9aeUZAXc5z3WnPurpCNuTi+PmX9bL2MV0XQHwGXiSRgiEcyo+01d8is0ynkW0OAN/MeKna8BC9TMYzTuLKhBIexZiXU2JB5NqnHDkzfihuGOW5gqEkCKlqkcJ0vNMAXaK4XAXDjCOIdynwb/APkoeLuyslIRFWkpHmwpF0xPhhA9103kgKQ6cDgDD1gNWsIBhVp+FlE554ZJjU0d+vUeYUqoZiU5RrQrzZBuoG94O9fAkk+dSIOB1vKdq6usRA=="
+#define USER_DEVELOPER_ACCOUNT      "accepted"
 #define USER_BAUD_RATE              "460800"
 
 /* Exported types ------------------------------------------------------------*/
