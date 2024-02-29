@@ -35,11 +35,11 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 // ATTENTION: User must goto https://developer.dji.com/user/apps/#all to create your own dji sdk application, get dji sdk application
 // information then fill in the application information here.
-#define USER_APP_NAME               "your_app_name"
-#define USER_APP_ID                 "your_app_id"
-#define USER_APP_KEY                "your_app_key"
-#define USER_APP_LICENSE            "your_app_license"
-#define USER_DEVELOPER_ACCOUNT      "your_developer_account"
+#define USER_APP_NAME               "PSDK"
+#define USER_APP_ID                 "1143234"
+#define USER_APP_KEY                "7ac212ed583983f3125fa0165e33d2bfa1acbe182260e9f5e406bc3b9a794bf0"
+#define USER_APP_LICENSE            "lqFIlTbR1HI2xu1ZzXhp16JQycMYcIccGxRvUpysaBJhAoAgfUhgyj/Z5jLlnxkHafFzmNU7WgSrIOxCCaUc3bctXDpgedPwyy0B3zDCYuXvklz+gAUgU3350N9RTldY2icDTWXyEqwnqlV2ffo5LpGsbcHTq8hZ11ZFWlmAAw5QpI9ZJ9VwRLiefxjKFitMOkMFvNksU42pErMiBb0/lJ2e9oGs58Yz0rm8Fj0OJycQlTjoJdoj6hcA86NVaQ86pZq9CpozugsBjLXfg+XxkTg25rMdpP6cybf7PBISmghrGc0yB7Tjpkk2yV5o9hXDMiK1n+y2LBtRikZKk4LaGg=="
+#define USER_DEVELOPER_ACCOUNT      "yc@supairvision.com"
 #define USER_BAUD_RATE              "460800"
 
 /* Exported types ------------------------------------------------------------*/
