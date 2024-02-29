@@ -1133,11 +1133,11 @@ void SAV_SubscriptionandControlSample()
                 else(reserved case) {stabilize and wait}
         }
 
-        if(mission_done) release RC authority ;
+        if(mission_done && RC_connected)  release RC authority ;
 
         if(RC_take_authority) release RC authority;
 
-        if(strong_wind) fly backwards for 5 sec -> stabilize and warn pilot 
+        if(strong_wind && RC_connected) fly backwards for 5 sec -> stabilize and warn pilot 
     */
 
 
@@ -1375,11 +1375,7 @@ T_DjiFcSubscriptionFlightStatus DjiTest_FlightControlGetValueOfFlightStatus(void
     if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
         USER_LOG_ERROR("Get value of topic flight status error, error code: 0x%08X", djiStat);
         flightStatus = 0;
-    } else {
-        USER_LOG_DEBUG("Timestamp: millisecond %u microsecond %u.", flightStatusTimestamp.millisecond,
-                       flightStatusTimestamp.microsecond);
-        USER_LOG_DEBUG("Flight status: %d.", flightStatus);
-    }
+    } 
 
     return flightStatus;
 }
@@ -1398,11 +1394,7 @@ T_DjiFcSubscriptionDisplaymode DjiTest_FlightControlGetValueOfDisplayMode(void)
     if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
         USER_LOG_ERROR("Get value of topic display mode error, error code: 0x%08X", djiStat);
         displayMode = 0;
-    } else {
-        USER_LOG_DEBUG("Timestamp: millisecond %u microsecond %u.", displayModeTimestamp.millisecond,
-                       displayModeTimestamp.microsecond);
-        USER_LOG_DEBUG("Display mode : %d.", displayMode);
-    }
+    } 
 
     return displayMode;
 }
@@ -1420,10 +1412,7 @@ T_DjiFcSubscriptionHeightFusion DjiTest_FlightControlGetValueOfHeightFusion(void
 
     if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
         USER_LOG_ERROR("Get value of topic height fusion error, error code: 0x%08X", djiStat);
-    } else {
-        USER_LOG_DEBUG("Timestamp: millisecond %u microsecond %u.", timestamp.millisecond, timestamp.microsecond);
-        USER_LOG_DEBUG("Relative height fusion is %f m", heightFusion);
-    }
+    } 
 
     return heightFusion;
 }
@@ -1459,11 +1448,7 @@ T_DjiFcSubscriptionQuaternion DjiTest_FlightControlGetValueOfQuaternion(void)
 
     if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
         USER_LOG_ERROR("Get value of topic quaternion error, error code: 0x%08X", djiStat);
-    } else {
-        USER_LOG_DEBUG("Timestamp: millisecond %u microsecond %u.", quaternionTimestamp.millisecond,
-                       quaternionTimestamp.microsecond);
-        USER_LOG_DEBUG("Quaternion: %f %f %f %f.", quaternion.q0, quaternion.q1, quaternion.q2, quaternion.q3);
-    }
+    } 
 
     return quaternion;
 }
@@ -1574,10 +1559,7 @@ dji_f32_t DjiTest_FlightControlGetValueOfRelativeHeight(void)
     if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
         USER_LOG_ERROR("Get value of topic altitude of home point error, error code: 0x%08X", djiStat);
         return -1;
-    } else {
-        USER_LOG_DEBUG("Timestamp: millisecond %u microsecond %u.", relativeHeightTimestamp.millisecond,
-                       relativeHeightTimestamp.microsecond);
-    }
+    } 
 
     djiStat = DjiFcSubscription_GetLatestValueOfTopic(DJI_FC_SUBSCRIPTION_TOPIC_ALTITUDE_FUSED,
                                                       (uint8_t *) &altitudeFused,
@@ -1587,11 +1569,7 @@ dji_f32_t DjiTest_FlightControlGetValueOfRelativeHeight(void)
     if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
         USER_LOG_ERROR("Get value of topic altitude fused error, error code: 0x%08X", djiStat);
         return -1;
-    } else {
-        USER_LOG_DEBUG("Timestamp: millisecond %u microsecond %u.", relativeHeightTimestamp.millisecond,
-                       relativeHeightTimestamp.microsecond);
-    }
-
+    } 
     relativeHeight = altitudeFused - homePointAltitude;
 
     return relativeHeight;
