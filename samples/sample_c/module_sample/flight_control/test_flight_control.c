@@ -1216,7 +1216,7 @@ void SAV_SubscriptionandControlSample()
         USER_LOG_ERROR("Obtain joystick authority failed, error code: 0x%08X", returnCode);
         goto out;
     }
-    s_osalHandler->TaskSleepMs(1000);
+    s_osalHandler->TaskSleepMs(100);
 
     /*takeoff, in real flight we don't need it for recent future */
     USER_LOG_INFO("--> Step 2: Take off\r\n");
@@ -1227,38 +1227,37 @@ void SAV_SubscriptionandControlSample()
     }
     USER_LOG_INFO("Successful take off\r\n");
     DjiTest_WidgetLogAppend("Successful take off\r\n");
-
+    s_osalHandler->TaskSleepMs(5000);
 
     /* fly towards blade(virtuel), this depends on how the desired position is given, relative to drone or absolute in NED frame?
        here we assume the position is given by absolute NED frame
     */
 
-
    //move fast
-    USER_LOG_INFO("--> Phase1 - Pos1: Move to north:10(m), east:20(m), up:20(m) , yaw:15(degree) from current point");
-    DjiTest_WidgetLogAppend("--> Phase1 - Pos1: Move to north:10(m), east:20(m), up:20(m) , yaw:15(degree) from current pointt");
+    USER_LOG_INFO("--> Phase1.1: Move to north:10(m), east:20(m), up:20(m) , yaw:15(degree) from current point");
+    DjiTest_WidgetLogAppend("--> Phase1.2: Move to north:10(m), east:20(m), up:20(m) , yaw:15(degree) from current pointt");
     if (!DjiTest_FlightControlMoveByPositionOffset((T_DjiTestFlightControlVector3f) {10, 20, 20}, 15, 0.8, 1)) {
-        USER_LOG_ERROR("Phase1 - Pos1 failed");
+        USER_LOG_ERROR("Phase1.1 failed");
         goto out;
     };
 
     //move in another direction
-    USER_LOG_INFO("--> Phase1 - Pos2: Move to north:2(m), east:3(m), up:0.5(m) , yaw:-10(degree) from current point");
+    USER_LOG_INFO("--> Phase1.2: Move to north:2(m), east:3(m), up:0.5(m) , yaw:-10(degree) from current point");
     DjiTest_WidgetLogAppend(
-        "--> Phase1 - Pos2: Move to north:2(m), east:3(m), up:0.5(m) , yaw:-10(degree) from current point");
+        "--> Phase1.2: Move to north:2(m), east:3(m), up:0.5(m) , yaw:-10(degree) from current point");
     if (!DjiTest_FlightControlMoveByPositionOffset((T_DjiTestFlightControlVector3f) {2, 3, 0.5}, -10, 0.8, 1)) {
-        USER_LOG_ERROR("Phase1 - Pos2 failed");
+        USER_LOG_ERROR("Phase1.2 failed");
         goto out;
     };
 
     //adjust slightly for re-positioning, target on patch right now
-    USER_LOG_INFO("--> Phase1 - Pos3: Move to north:0.05(m), east:-0.12(m), up:0.02(m) , yaw:0.5(degree) from current point");
-    DjiTest_WidgetLogAppend("--> Phase1 - Pos3: Move to north:0.05(m), east:-0.12(m), up:0.02(m) , yaw:0.5(degree) from current point");
+    USER_LOG_INFO("--> Phase1.3: Move to north:0.05(m), east:-0.12(m), up:0.02(m) , yaw:0.5(degree) from current point");
+    DjiTest_WidgetLogAppend("--> Phase1.3: Move to north:0.05(m), east:-0.12(m), up:0.02(m) , yaw:0.5(degree) from current point");
     if (!DjiTest_FlightControlMoveByPositionOffset((T_DjiTestFlightControlVector3f) {0.05, -0.12, 0.02}, 0.5, 0.1, 1)) {
-        USER_LOG_ERROR("Phase1 - Pos3 failed");
+        USER_LOG_ERROR("Phase1.3 failed");
         goto out;
     }
-
+    s_osalHandler->TaskSleepMs(2000);
 
     /*here comes the phase2
     1. Assume the patch is right before the drone and stable. In real flight, could make a PID here to calculate desired velocity.
@@ -1267,30 +1266,41 @@ void SAV_SubscriptionandControlSample()
            3. Apply pitch and velocity bounds to see if it's dangerous
            4. The ending condition should be a maximum time or high acceleration detection 
     */
-    USER_LOG_INFO("--> Phase2 - Vel1: (0.2 m/s, 0 m/s, 0m/s, 0°/s) Move forward for 5 seconds");
-    DjiTest_WidgetLogAppend("--> --> Phase2 - Vel1: (0.2 m/s, 0 m/s, 0m/s, 0°/s) Move forward for 5 seconds");
-    SAV_ControlVelocity_Yawrate_BodyCoord((T_DjiTestFlightControlVector3f) {0.2, 0, 0}, 0, 5000);
+    USER_LOG_INFO("--> Phase2.1: (0.2 m/s, 0 m/s, 0m/s, 0°/s) Move forwards for 10 seconds");
+    DjiTest_WidgetLogAppend("--> Phase2 - Vel1: (0.2 m/s, 0 m/s, 0m/s, 0°/s) Move forwards for 10 seconds");
+    SAV_ControlVelocity_Yawrate_BodyCoord((T_DjiTestFlightControlVector3f) {0.2, 0, 0}, 0, 10000);
 
 
     //if contacted, fly backwards faster for 3 seconds
-    USER_LOG_INFO("--> Phase2 - Vel2: (-1 m/s, 0 m/s, 0m/s, 0°/s) Move forward for 3 seconds");
-    DjiTest_WidgetLogAppend("--> --> Phase2 - Vel2: (-1 m/s, 0 m/s, 0m/s, 0°/s) Move forward for 3 seconds");
+    USER_LOG_INFO("--> Phase2.2: (-1 m/s, 0 m/s, 0m/s, 0°/s) Move backwards for 3 seconds");
+    DjiTest_WidgetLogAppend("--> Phase2.2: (-1 m/s, 0 m/s, 0m/s, 0°/s) Move backwards for 3 seconds");
     SAV_ControlVelocity_Yawrate_BodyCoord((T_DjiTestFlightControlVector3f) {-1, 0, 0}, 0, 3000);
 
 
     //switch to position control mode and RTL
     //to do: complet RTL
 
-    USER_LOG_INFO("--> Phase3 - Pos1: Move to north:-10(m), east:-20(m), up:-20(m) , yaw:180(degree) from current point");
-    DjiTest_WidgetLogAppend("--> --> Phase3 - Pos1: Move to north:-10(m), east:-20(m), up:-20(m) , yaw:180(degree) from current point");
-    if (!DjiTest_FlightControlMoveByPositionOffset((T_DjiTestFlightControlVector3f) {-10, -20, -20}, 180, 0.8, 1)) {
-        USER_LOG_ERROR("Phase1 - Pos1 failed");
+    // turn yaw
+    USER_LOG_INFO("--> Phase3.1:  yaw:180(degree) turn the yaw backwards");
+    DjiTest_WidgetLogAppend(" --> Phase3.1:  yaw:180(degree) turn the yaw backwards");
+    if (!DjiTest_FlightControlMoveByPositionOffset((T_DjiTestFlightControlVector3f) {0, 0, 0}, 180, 0.8, 5)) {
+        USER_LOG_ERROR("Phase3.1 failed");
+        goto out;
+    };
+    s_osalHandler->TaskSleepMs(2000);
+
+
+    // return fast
+    USER_LOG_INFO("--> Phase3.2: Move to north:-10(m), east:-20(m), up:-20(m) , yaw:0(degree) from current point");
+    DjiTest_WidgetLogAppend("--> Phase3.2: Move to north:-10(m), east:-20(m), up:-20(m) , yaw:0(degree) from current point");
+    if (!DjiTest_FlightControlMoveByPositionOffset((T_DjiTestFlightControlVector3f) {-10, -20, -20}, 0, 0.8, 1)) {
+        USER_LOG_ERROR("Phase3.2 failed");
         goto out;
     };
 
 
-    USER_LOG_INFO("--> Phase3: Landing\r\n");
-    DjiTest_WidgetLogAppend("--> Phase3: Landing\r\n");
+    USER_LOG_INFO("--> Phase4: Landing\r\n");
+    DjiTest_WidgetLogAppend("--> Phase4: Landing\r\n");
     if (!DjiTest_FlightControlMonitoredLanding()) {
         USER_LOG_ERROR("Landing failed");
         goto out;
@@ -1298,8 +1308,8 @@ void SAV_SubscriptionandControlSample()
     USER_LOG_INFO("Successful landing\r\n");
     DjiTest_WidgetLogAppend("Successful landing\r\n");
 
-    USER_LOG_INFO("--> Phase3 - ending: Release joystick authority");
-    DjiTest_WidgetLogAppend("--> Phase3 - ending: Release joystick authority");
+    USER_LOG_INFO("--> Phase5 - ending: Release joystick authority");
+    DjiTest_WidgetLogAppend("--> Phase5 - ending: Release joystick authority");
     returnCode = DjiFlightController_ReleaseJoystickCtrlAuthority();
     if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
         USER_LOG_ERROR("Release joystick authority failed, error code: 0x%08X", returnCode);
@@ -1747,6 +1757,14 @@ bool DjiTest_FlightControlGoHomeAndConfirmLanding(void)
 
     /*! Step 2: Start landing */
     USER_LOG_INFO("Start landing action");
+
+    /*! bug fix, add start landing action */
+    djiStat = DjiFlightController_StartLanding();
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Start landing failed, error code: 0x%08X", djiStat);
+        return false;
+    }
+
     if (!DjiTest_FlightControlCheckActionStarted(DJI_FC_SUBSCRIPTION_DISPLAY_MODE_AUTO_LANDING)) {
         USER_LOG_ERROR("Fail to execute Landing action");
         return false;
