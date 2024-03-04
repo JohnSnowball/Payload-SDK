@@ -37,7 +37,7 @@ extern "C" {
 // information then fill in the application information here.
 #define USER_APP_NAME               "psdkAppp"
 #define USER_APP_ID                 "130002"
-#define USER_APP_KEY                "f41a8a6aad611583d55e5eba56f1a490"
+#define USER_APP_KEY                "f41a8a6aad611583d55e5eba56f1a49"
 #define USER_APP_LICENSE            "zjKXlHtNa0KQMrHIEw2ca/pMn+4n8JKiW1YQqFTCJop5WxnhOs5S1w+MwdZK9XoQL3IOvlGOZOVWKYYQGFEyo8j/9aeUZAXc5z3WnPurpCNuTi+PmX9bL2MV0XQHwGXiSRgiEcyo+01d8is0ynkW0OAN/MeKna8BC9TMYzTuLKhBIexZiXU2JB5NqnHDkzfihuGOW5gqEkCKlqkcJ0vNMAXaK4XAXDjCOIdynwb/APkoeLuyslIRFWkpHmwpF0xPhhA9103kgKQ6cDgDD1gNWsIBhVp+FlE554ZJjU0d+vUeYUqoZiU5RrQrzZBuoG94O9fAkk+dSIOB1vKdq6usRA=="
 #define USER_DEVELOPER_ACCOUNT      "accepted"
 #define USER_BAUD_RATE              "460800"
