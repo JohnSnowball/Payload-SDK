@@ -1298,15 +1298,15 @@ void SAV_SubscriptionandControlSample()
         goto out;
     };
 
-
-    USER_LOG_INFO("--> Phase4: Landing\r\n");
-    DjiTest_WidgetLogAppend("--> Phase4: Landing\r\n");
-    if (!DjiTest_FlightControlMonitoredLanding()) {
-        USER_LOG_ERROR("Landing failed");
+    //replace auto-landing by a full RTL, always aorks, 20240301
+    USER_LOG_INFO("--> Phase4: RTL\r\n");
+    DjiTest_WidgetLogAppend("--> Phase4: RTL\r\n");
+    if (!DjiTest_FlightControlGoHomeAndConfirmLanding()) {
+        USER_LOG_ERROR("RTL failed");
         goto out;
     }
-    USER_LOG_INFO("Successful landing\r\n");
-    DjiTest_WidgetLogAppend("Successful landing\r\n");
+    USER_LOG_INFO("Successful RTL\r\n");
+    DjiTest_WidgetLogAppend("Successful RTL\r\n");
 
     USER_LOG_INFO("--> Phase5 - ending: Release joystick authority");
     DjiTest_WidgetLogAppend("--> Phase5 - ending: Release joystick authority");
