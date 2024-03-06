@@ -248,10 +248,10 @@ T_DjiReturnCode DjiTest_FlightControlInit(void)
 T_DjiReturnCode SAV_FlightControlInit(void)
 {
     /*subscription : 1. acceleration 200Hz 
-                     2. quaterion 100Hz 
+                     2. quaterion --> attitude 100Hz 
                      3. vel&pos 50Hz 
                      4. battery 5-10Hz
-                     5. RCstick 50Hz 
+                     5. RCstick 100Hz 
                      6. to do: blade or patch info(vel&pos) from stereo camera
                      7. thrust 50Hz retrive from esc data
     */
@@ -1104,8 +1104,22 @@ void SAV_SubscriptionandControlSample()
     All control&safety check running in 30-50 Hz, depends on CPU usage(core stability).
     */
     T_DjiReturnCode returnCode;
+    int flag_break_by_rc = false;
+    int flag_high_attitude = false;
+    int flag_high_velocity = false;
+    int flag_high_throttle = false;
 
 
+    float  X_acc_average = 0.0f;
+    float  Y_acc_average = 0.0f;
+    float  Z_acc_average = 0.0f;
+    int flag_contacted_maybe = false;
+    int flag_drone_blade_in_contact = false;
+    int contact_maybe_counter = 0;
+
+
+    int start_single_measurement = false;
+    int flag_close_to_blade = false;
     /*
     todo: make all these control steps in a big loop and check in each loop if the pilot wants to takeover control authority.
         while((!mission_done or !RC_take_authority or !strong_wind)&&slower_than_50Hz)
@@ -1121,13 +1135,17 @@ void SAV_SubscriptionandControlSample()
         
             3. control:
                 if(far away from blade)
-                    {   control phase1 --> approach, trajectory generation}
+                    {   control phase1 --> 
+                        check flags, if safe, do approach, trajectory generation
+                        else stabilze for a moment and report}
                 elseif(close to the blade && start_single_measure) 
-                    {   control phase2 --> fly slowly towards the patch until contact;
+                    {   control phase2 --> 
+                        check flags, if safe, do fly slowly towards the patch until contact;
+                        else backoff until distance > 1m
                         if(!contacted)
                             {   continue;}
                         elseif(contacted) 
-                            {brake and fly backwards; start_single_measure == false}
+                            {backoff directly; start_single_measure == false}
                 }
                 elseif(close to the blade && !start_single_measure){ stabilize }
                 else(reserved case) {stabilize and wait}
@@ -1142,67 +1160,96 @@ void SAV_SubscriptionandControlSample()
 
 
 
-    /*Fetch values from subscribed topic*/
+    /*Firstly fetch values from subscribed topic, determine if it's safe for auto control */
+    while{
+        //DJI_FC_SUBSCRIPTION_TOPIC_STATUS_FLIGHT, 10Hz
 
-    //DJI_FC_SUBSCRIPTION_TOPIC_STATUS_FLIGHT, 10Hz
+        //acceleration in IMU frame, m/s2, highest frequency, 200hz, used for determine contact
+        T_DjiFcSubscriptionAccelerationRaw Acc_raw = DjiTest_FlightControlGetValueOfAcceleration();
+        float acc_x = Acc_raw.x;
+        float acc_y = Acc_raw.y;
+        float acc_z = Acc_raw.z;
 
-    //acceleration in IMU frame, m/s2, highest frequency, 200hz, used for determine contact
-    T_DjiFcSubscriptionAccelerationRaw Acc_raw = DjiTest_FlightControlGetValueOfAcceleration();
-    float acc_x = Acc_raw.x;
-    float acc_y = Acc_raw.y;
-    float acc_z = Acc_raw.z;
+        //need to fix with more log data, filter coefficients to be determined
+        if((fabs(acc_x - X_acc_average) > 0.01f ) || (fabs(acc_y - Y_acc_average) > 0.01f ) 
+            ||(fabs(acc_y - Y_acc_average) > 0.01f )){
+           
+            flag_contacted_maybe = true;
+            contact_maybe_counter += 2;
+        }
+        else if(flag_contacted_maybe){
+            
+            if(contact_maybe_counter <=1 ){
+                flag_contacted_maybe = false; 
+            }else{
+                contact_maybe_counter -= 1;
+            }
+           
+        }
+        else{
+           
+        }
 
-    //attitude, need to be converted in to roll/pitch/yaw, 100hz, might be used to determine contact
-    T_DjiFcSubscriptionQuaternion currentQuaternion = DjiTest_FlightControlGetValueOfQuaternion();
-    T_DjiTestFlightControlVector3f eulerAngle = DjiTest_FlightControlQuaternionToEulerAngle(currentQuaternion);
-    float pitchInDeg = 57.3f*eulerAngle.x;
-    float rollInDeg = 57.3f*eulerAngle.y;
-    float yawInDeg = 57.3f*eulerAngle.z;
+        if(flag_contacted_maybe && contact_maybe_counter >= 20){
+            flag_drone_blade_in_contact = true;
+        }
 
-    //position, lat/lon/alt/sat number, 50Hz
-    //this data is strongly base on GPS signal, everytime we use this should check if GPS signal is good, satellite number > 12
-    //need to do: enable RTK for M350!!!
-    /* E_DjiFlightControllerRtkPositionEnableStatus == 1*/
-    T_DjiFcSubscriptionPositionFused currentGPSPosition = DjiTest_FlightControlGetValueOfPositionFused();
-    float lat_curr = currentGPSPosition.latitude;
-    float lon_curr = currentGPSPosition.longitude;
-    float curr_alt = currentGPSPosition.altitude;
-    float satNum = currentGPSPosition.visibleSatelliteNumber;
-        
-
-    //altitude above sea level, along with altitude, 50Hz
-
-
-    //velocity in m/s, used for safety check, 50Hz
-    T_DjiFcSubscriptionVelocity currentVelocity = DjiTest_FlightControlGetValueOfVelocity();
-    float vel_N = currentVelocity.data.x;
-    float vel_E = currentVelocity.data.y;
-    float vel_U = currentVelocity.data.z;
-    
-    //RC stick XYZR and connection state, used for safety check, 50Hz
-    T_DjiFcSubscriptionRCWithFlagData RC_infos = DjiTest_FlightControlGetValueOfRC();
-    float stick_pitch = RC_infos.pitch;
-    float stick_roll = RC_infos.roll;
-    float stick_yaw = RC_infos.yaw;
-    float stick_throttle = RC_infos.throttle;
-    float gnd_signal = RC_infos.flag.groundConnected;
-
-    //battery info, used for safety check, 5Hz
-    T_DjiFcSubscriptionWholeBatteryInfo currBattery = DjiTest_FlightControlGetValueOfBattery();
-    float voltage_whole = currBattery.voltage;
-    float percent_whole = currBattery.percentage;
-
-    /*calculate average throttle from esc data, here we use rotation speed instead, unit in RPM */
-    T_DjiFcSubscriptionEscData ESC_all = DjiTest_FlightControlGetValueOfESCData();
-    float speed0 = ESC_all.esc[0].speed;
-    float speed1 = ESC_all.esc[1].speed;
-    float speed2 = ESC_all.esc[2].speed;
-    float speed3 = ESC_all.esc[3].speed;
-    float speed_average = (speed0+speed1+speed2+speed3)/4;
-
-    //home altitude above sea level recorded when last takeoff, lowest frequency
+        X_acc_average = X_acc_average*0.9f + acc_x*0.1f;
+        Y_acc_average = Y_acc_average*0.9f + acc_y*0.1f;
+        Z_acc_average = Z_acc_average*0.9f + acc_z*0.1f;
 
 
+        //attitude, need to be converted in to roll/pitch/yaw, 100hz, might be used to determine contact
+        T_DjiFcSubscriptionQuaternion currentQuaternion = DjiTest_FlightControlGetValueOfQuaternion();
+        T_DjiTestFlightControlVector3f eulerAngle = DjiTest_FlightControlQuaternionToEulerAngle(currentQuaternion);
+        float pitchInDeg = 57.3f*eulerAngle.x;
+        float rollInDeg = 57.3f*eulerAngle.y;
+        float yawInDeg = 57.3f*eulerAngle.z;
+
+        //position, lat/lon/alt/sat number, 50Hz
+        //this data is strongly base on GPS signal, everytime we use this should check if GPS signal is good, satellite number > 12
+        //need to do: enable RTK for M350!!!
+        /* E_DjiFlightControllerRtkPositionEnableStatus == 1*/
+        T_DjiFcSubscriptionPositionFused currentGPSPosition = DjiTest_FlightControlGetValueOfPositionFused();
+        float lat_curr = currentGPSPosition.latitude;
+        float lon_curr = currentGPSPosition.longitude;
+        float curr_alt = currentGPSPosition.altitude;
+        float satNum = currentGPSPosition.visibleSatelliteNumber;
+            
+
+        //altitude above sea level, along with altitude, 50Hz
+
+
+        //velocity in m/s, used for safety check, 50Hz
+        T_DjiFcSubscriptionVelocity currentVelocity = DjiTest_FlightControlGetValueOfVelocity();
+        float vel_N = currentVelocity.data.x;
+        float vel_E = currentVelocity.data.y;
+        float vel_U = currentVelocity.data.z;
+
+        //RC stick XYZR and connection state, used for safety check, 50Hz
+        T_DjiFcSubscriptionRCWithFlagData RC_infos = DjiTest_FlightControlGetValueOfRC();
+        float stick_pitch = RC_infos.pitch;
+        float stick_roll = RC_infos.roll;
+        float stick_yaw = RC_infos.yaw;
+        float stick_throttle = RC_infos.throttle;
+        float gnd_signal = RC_infos.flag.groundConnected;
+
+        //battery info, used for safety check, 5Hz
+        T_DjiFcSubscriptionWholeBatteryInfo currBattery = DjiTest_FlightControlGetValueOfBattery();
+        float voltage_whole = currBattery.voltage;
+        float percent_whole = currBattery.percentage;
+
+        /*calculate average throttle from esc data, here we use rotation speed instead, unit in RPM */
+        T_DjiFcSubscriptionEscData ESC_all = DjiTest_FlightControlGetValueOfESCData();
+        float speed0 = ESC_all.esc[0].speed;
+        float speed1 = ESC_all.esc[1].speed;
+        float speed2 = ESC_all.esc[2].speed;
+        float speed3 = ESC_all.esc[3].speed;
+        float speed_average = (speed0+speed1+speed2+speed3)/4;
+
+        //home altitude above sea level recorded when last takeoff, lowest frequency
+
+    }
     USER_LOG_INFO("SAV sample start");
     DjiTest_WidgetLogAppend("SAV sample start");
 
