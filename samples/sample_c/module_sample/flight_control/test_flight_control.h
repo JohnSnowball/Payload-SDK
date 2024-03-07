@@ -30,6 +30,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "dji_typedef.h"
 
+#include "pthread.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif

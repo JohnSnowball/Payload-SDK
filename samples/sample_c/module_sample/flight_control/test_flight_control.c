@@ -106,6 +106,12 @@ static void DjiTest_FlightControlArrestFlyingSample(void);
 static void DjiTest_FlightControlSample(E_DjiTestFlightCtrlSampleSelect flightCtrlSampleSelect);
 static void SAV_SubscriptionandControlSample(void);
 
+static pthread_t logger_thread = 0;
+static pthread_t flightcontrol_thread = 0;
+
+void* logger_loop(void*arg);
+void* fcontrol_loop(void*arg);
+
 /* Exported functions definition ---------------------------------------------*/
 T_DjiReturnCode DjiTest_FlightControlRunSample(E_DjiTestFlightCtrlSampleSelect flightCtrlSampleSelect)
 {
@@ -153,15 +159,24 @@ T_DjiReturnCode Sav_FlightControl_Logger_Sample(void)
 
     returnCode = SAV_FlightControlInit();
     if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-        USER_LOG_ERROR("Init SAV sample failed,error code:0x%08llX", returnCode);
+        USER_LOG_ERROR("Init subscription or environment failed,error code:0x%08llX", returnCode);
         return returnCode;
     }
 
     //add logger loop and control loop here
-    DjiTest_FlightControlSample(flightCtrlSampleSelect);
+    if(pthread_create(&logger_thread,NULL,logger_loop,NULL)){
+        printf("create logger task fail.\n");
+    }
+
+    if(pthread_create(&flightcontrol_thread,NULL,fcontrol_loop,NULL)){
+        printf("create fcontrol task fail.\n");
+    }
 
 
-
+    while (1) {
+        printf("main task is running.\n");
+        sleep(1);
+    }
 
     USER_LOG_DEBUG("Deinit Flight Control Sample");
     DjiTest_WidgetLogAppend("Deinit Flight Control Sample");
@@ -172,7 +187,6 @@ T_DjiReturnCode Sav_FlightControl_Logger_Sample(void)
     }
 
     return returnCode;
-
 
 }
 
@@ -2205,6 +2219,61 @@ DjiTest_FlightControlJoystickCtrlAuthSwitchEventCallback(T_DjiFlightControllerJo
     }
 
     return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
+}
+
+void* logger_loop(void* arg)
+{
+    dji_f64_t pitch, yaw, roll;
+
+    TEST* data = (TEST *)getQuaternionaddress();
+
+   while(1){
+
+    pitch = (dji_f64_t) asinf(-2 * data->quaternion.q1 * data->quaternion.q3 + 2 * data->quaternion.q0 * data->quaternion.q2) * 57.3;
+    roll = (dji_f64_t) atan2f(2 * data->quaternion.q2 * data->quaternion.q3 + 2 * data->quaternion.q0 * data->quaternion.q1,
+                             -2 * data->quaternion.q1 * data->quaternion.q1 - 2 * data->quaternion.q2 * data->quaternion.q2 + 1) *57.3;
+    yaw = (dji_f64_t) atan2f(2 * data->quaternion.q1 * data->quaternion.q2 + 2 * data->quaternion.q0 * data->quaternion.q3,
+                             -2 * data->quaternion.q2 * data->quaternion.q2 - 2 * data->quaternion.q3 * data->quaternion.q3 + 1) *57.3;
+
+    USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", data->timestamp.millisecond,
+                          data->timestamp.microsecond);
+    USER_LOG_INFO("euler angles: pitch = %.2f roll = %.2f yaw = %.2f.\r\n", pitch, roll, yaw);
+
+
+            
+            
+    usleep(10000);
+   }
+
+}
+void* fcontrol_loop(void* arg)
+{
+    
+    dji_f64_t pitch, yaw, roll;
+
+    TEST* data = (TEST *)getQuaternionaddress();
+
+   while(1){
+
+    pitch = (dji_f64_t) asinf(-2 * data->quaternion.q1 * data->quaternion.q3 + 2 * data->quaternion.q0 * data->quaternion.q2) * 57.3;
+    roll = (dji_f64_t) atan2f(2 * data->quaternion.q2 * data->quaternion.q3 + 2 * data->quaternion.q0 * data->quaternion.q1,
+                             -2 * data->quaternion.q1 * data->quaternion.q1 - 2 * data->quaternion.q2 * data->quaternion.q2 + 1) * 57.3;
+    yaw = (dji_f64_t) atan2f(2 * data->quaternion.q1 * data->quaternion.q2 + 2 * data->quaternion.q0 * data->quaternion.q3,
+                             -2 * data->quaternion.q2 * data->quaternion.q2 - 2 * data->quaternion.q3 * data->quaternion.q3 + 1) *
+          57.3;
+
+            printf("quaternion: %f %f %f %f.\n", data->quaternion.q0, data->quaternion.q1, data->quaternion.q2,
+                          data->quaternion.q3);
+            printf("timestamp: millisecond %u microsecond %u.\n", data->timestamp.millisecond,
+                          data->timestamp.microsecond);
+
+            printf("euler angles: pitch = %.2f roll = %.2f yaw = %.2f.\n", pitch, roll, yaw);
+
+            usleep(100000);
+
+
+   }
+
 }
 
 /****************** (C) COPYRIGHT DJI Innovations *****END OF FILE****/
