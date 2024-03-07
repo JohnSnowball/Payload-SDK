@@ -1120,6 +1120,7 @@ void SAV_SubscriptionandControlSample()
 
     int start_single_measurement = false;
     int flag_close_to_blade = false;
+
     /*
     todo: make all these control steps in a big loop and check in each loop if the pilot wants to takeover control authority.
         while((!mission_done or !RC_take_authority or !strong_wind)&&slower_than_50Hz)
@@ -1140,12 +1141,19 @@ void SAV_SubscriptionandControlSample()
                         else stabilze for a moment and report}
                 elseif(close to the blade && start_single_measure) 
                     {   control phase2 --> 
-                        check flags, if safe, do fly slowly towards the patch until contact;
-                        else backoff until distance > 1m
-                        if(!contacted)
-                            {   continue;}
-                        elseif(contacted) 
-                            {backoff directly; start_single_measure == false}
+                        check flags, 
+                        if (safe){
+                            
+                            if(!contacted) {
+                                do fly slowly towards the patch until contact } 
+                            elseif(contacted) {
+                                backoff until distace > 1m 
+                                start_single_measure == false}
+                        else {
+
+                            backoff until distance > 1m 
+                            start_single_measure = false}
+                        
                 }
                 elseif(close to the blade && !start_single_measure){ stabilize }
                 else(reserved case) {stabilize and wait}
