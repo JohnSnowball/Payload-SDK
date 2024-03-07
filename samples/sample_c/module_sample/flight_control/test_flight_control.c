@@ -142,6 +142,40 @@ T_DjiReturnCode DjiTest_FlightControlRunSample(E_DjiTestFlightCtrlSampleSelect f
     return returnCode;
 }
 
+
+T_DjiReturnCode Sav_FlightControl_Logger_Sample(void)
+{
+
+    T_DjiReturnCode returnCode;
+
+    USER_LOG_DEBUG("Start fc and logger Sample");
+    DjiTest_WidgetLogAppend("Start fc and logger Sample");
+
+    returnCode = SAV_FlightControlInit();
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Init SAV sample failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    //add logger loop and control loop here
+    DjiTest_FlightControlSample(flightCtrlSampleSelect);
+
+
+
+
+    USER_LOG_DEBUG("Deinit Flight Control Sample");
+    DjiTest_WidgetLogAppend("Deinit Flight Control Sample");
+    returnCode = DjiTest_FlightControlDeInit();
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Deinit Flight Control sample failed,error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    return returnCode;
+
+
+}
+
 /* Private functions definition-----------------------------------------------*/
 T_DjiReturnCode DjiTest_FlightControlInit(void)
 {

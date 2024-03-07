@@ -100,6 +100,9 @@ start:
         case 's':
             DjiTest_FlightControlRunSample(SAV_SUB_AND_CTRL_SAMPLE);
             break;
+        case 'l':
+            Sav_FlightControl_Logger_Sample();
+            break;
         case 'q':
             break;
         default:
