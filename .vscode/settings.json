@@ -1,5 +1,9 @@
 {
     "files.associations": {
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "vector": "c",
+        "xstring": "c",
+        "xutility": "c",
+        "test_widget_interaction.h": "c"
     }
 }

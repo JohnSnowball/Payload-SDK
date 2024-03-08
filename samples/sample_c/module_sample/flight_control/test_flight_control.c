@@ -31,6 +31,14 @@
 #include <math.h>
 #include <widget_interaction_test/test_widget_interaction.h>
 #include <dji_aircraft_info.h>
+
+
+static void *Quaternion_data_address = NULL;
+static void *Acceleration_data_address = NULL;
+
+
+
+
 /* Private constants ---------------------------------------------------------*/
 
 /* Private types -------------------------------------------------------------*/
@@ -327,141 +335,13 @@ T_DjiReturnCode SAV_FlightControlInit(void)
         return returnCode;
     }
 
-    /*! subscribe fc data */
-    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_STATUS_FLIGHT,
-                                                  DJI_DATA_SUBSCRIPTION_TOPIC_10_HZ,
-                                                  NULL);
 
+    returnCode = All_Topic_Init();
     if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-        USER_LOG_ERROR("Subscribe topic flight status failed, error code:0x%08llX", returnCode);
+        USER_LOG_ERROR("Error during data subscription, error code:0x%08llX", returnCode);
         return returnCode;
     }
 
-    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_STATUS_DISPLAYMODE,
-                                                  DJI_DATA_SUBSCRIPTION_TOPIC_10_HZ,
-                                                  NULL);
-
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-        USER_LOG_ERROR("Subscribe topic display mode failed, error code:0x%08llX", returnCode);
-        return returnCode;
-    }
-
-    //ultra sonic height, used during landing, 10hz
-    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_HEIGHT_FUSION,
-                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
-                                                  NULL);
-
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-        USER_LOG_ERROR("Subscribe topic avoid data failed,error code:0x%08llX", returnCode);
-        return returnCode;
-    }
-
-    //acceleration in IMU frame, m/s2, highest frequency, 200hz, used for determine contact
-    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ACCELERATION_RAW,
-                                                  DJI_DATA_SUBSCRIPTION_TOPIC_200_HZ,
-                                                  NULL);
-
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-        USER_LOG_ERROR("Subscribe topic acceleration failed,error code:0x%08llX", returnCode);
-        return returnCode;
-    }
-
-
-    //attitude, need to be converted in to roll/pitch/yaw, 100hz, might be used to determine contact
-    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_QUATERNION,
-                                                  DJI_DATA_SUBSCRIPTION_TOPIC_100_HZ,
-                                                  NULL);
-
-    if (returnCode == DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-    } else if (returnCode == DJI_ERROR_SUBSCRIPTION_MODULE_CODE_TOPIC_DUPLICATE) {
-        USER_LOG_WARN("Subscribe topic quaternion duplicate");
-    } else {
-        USER_LOG_ERROR("Subscribe topic quaternion failed,error code:0x%08llX", returnCode);
-        return returnCode;
-    }
-
-    //position, lat/lon/alt/sat number, 50Hz
-    //this data is strongly base on GPS signal, everytime we use this should check if GPS signal is good, satellite number > 12
-    //need to do: enable RTK for M350!!!
-    /* E_DjiFlightControllerRtkPositionEnableStatus == 1*/
-    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_POSITION_FUSED,
-                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
-                                                  NULL);
-
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-        USER_LOG_ERROR("Subscribe topic position fused failed,error code:0x%08llX", returnCode);
-        return returnCode;
-    }
-
-    //altitude above sea level, along with altitude, 50Hz
-    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ALTITUDE_FUSED,
-                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
-                                                  NULL);
-
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-        USER_LOG_ERROR("Subscribe topic altitude fused failed,error code:0x%08llX", returnCode);
-        return returnCode;
-    }
-
-    //velocity in m/s, used for safety check, 50Hz
-    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_VELOCITY,
-                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
-                                                  NULL);
-
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-        USER_LOG_ERROR("Subscribe topic velocity failed,error code:0x%08llX", returnCode);
-        return returnCode;
-    }
-    
-    //RC stick XYZR and connection state, used for safety check, 50Hz
-    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_RC_WITH_FLAG_DATA,
-                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
-                                                  NULL);
-
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-        USER_LOG_ERROR("Subscribe topic RC failed,error code:0x%08llX", returnCode);
-        return returnCode;
-    }
-
-    //battery info, used for safety check, 5Hz
-    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_BATTERY_INFO,
-                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
-                                                  NULL);
-
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-        USER_LOG_ERROR("Subscribe topic BATTERY failed,error code:0x%08llX", returnCode);
-        return returnCode;
-    }
-
-    /*calculate average throttle from esc data */
-    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ESC_DATA,
-                                                  DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
-                                                  NULL);
-
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-        USER_LOG_ERROR("Subscribe topic ESC failed,error code:0x%08llX", returnCode);
-        return returnCode;
-    }
-
-    //home LAT/LON when last takeoff, lowest frequency
-    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_HOME_POINT_INFO,
-                                                  DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ,
-                                                  NULL);
-
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-        USER_LOG_ERROR("Subscribe topic altitude of home point failed,error code:0x%08llX", returnCode);
-        return returnCode;
-    }
-
-    //home altitude above sea level recorded when last takeoff, lowest frequency
-    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ALTITUDE_OF_HOMEPOINT,
-                                                  DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ,
-                                                  NULL);
-
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-        USER_LOG_ERROR("Subscribe topic altitude of home point failed,error code:0x%08llX", returnCode);
-        return returnCode;
-    }
 
     //essentiel for all modes
     returnCode = DjiFlightController_RegJoystickCtrlAuthorityEventCallback(
@@ -2221,28 +2101,92 @@ DjiTest_FlightControlJoystickCtrlAuthSwitchEventCallback(T_DjiFlightControllerJo
     return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
 }
 
+T_DjiReturnCode All_Topic_Init(void)
+{
+
+    T_DjiReturnCode returnCode;
+
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_QUATERNION, DJI_DATA_SUBSCRIPTION_TOPIC_100_HZ,
+                                               Sav_Quaternion_data_Callback);
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe Quaternion failed, error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+    Quaternion_data_address = malloc(sizeof(quatrenion_data_node));//alloc memory to topic
+
+
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ACCELERATION_RAW, DJI_DATA_SUBSCRIPTION_TOPIC_200_HZ,
+                                               Sav_Acceleration_data_Callback);
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe Acceleration failed, error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+    Acceleration_data_address = malloc(sizeof(acceleration_data_node));//alloc memory to topic
+
+    //position, lat/lon/alt/sat number, 50Hz
+    //position data is strongly base on GPS signal, everytime we use this should check if GPS signal is good, satellite number > 12
+    //need to do: always enable RTK for M350!!!
+    /* E_DjiFlightControllerRtkPositionEnableStatus == 1*/
+
+
+    return returnCode;
+
+}
+
+void* get_Quaternion_data_address(void)
+{
+    return Quaternion_data_address;
+}
+
+void* get_Acceleration_data_address(void)
+{
+    return Acceleration_data_address;
+}
+
+static T_DjiReturnCode Sav_Quaternion_data_Callback(const uint8_t *data, uint16_t dataSize,const T_DjiDataTimestamp *timestamp)
+{
+    memcpy(&((quatrenion_data_node*)Quaternion_data_address)->quaternion,data,dataSize);//data copy
+    memcpy(&((quatrenion_data_node*)Quaternion_data_address)->timestamp,timestamp,sizeof(T_DjiDataTimestamp));
+
+    return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
+}
+
+static T_DjiReturnCode Sav_Acceleration_data_Callback(const uint8_t *data, uint16_t dataSize, const T_DjiDataTimestamp *timestamp)
+{
+    memcpy(&((acceleration_data_node*)Acceleration_data_address)->acc,data,dataSize);//data copy
+    memcpy(&((acceleration_data_node*)Acceleration_data_address)->timestamp,timestamp,sizeof(T_DjiDataTimestamp));
+
+    return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
+
+}
+
 void* logger_loop(void* arg)
 {
     dji_f64_t pitch, yaw, roll;
+    T_DjiFcSubscriptionAccelerationRaw acc_raw;
 
-    TEST* data = (TEST *)getQuaternionaddress();
+    quatrenion_data_node* quat_pack = (quatrenion_data_node*)get_Quaternion_data_address();
+    acceleration_data_node* acc_pack = (acceleration_data_node*)get_Acceleration_data_address();
 
    while(1){
 
-    pitch = (dji_f64_t) asinf(-2 * data->quaternion.q1 * data->quaternion.q3 + 2 * data->quaternion.q0 * data->quaternion.q2) * 57.3;
-    roll = (dji_f64_t) atan2f(2 * data->quaternion.q2 * data->quaternion.q3 + 2 * data->quaternion.q0 * data->quaternion.q1,
-                             -2 * data->quaternion.q1 * data->quaternion.q1 - 2 * data->quaternion.q2 * data->quaternion.q2 + 1) *57.3;
-    yaw = (dji_f64_t) atan2f(2 * data->quaternion.q1 * data->quaternion.q2 + 2 * data->quaternion.q0 * data->quaternion.q3,
-                             -2 * data->quaternion.q2 * data->quaternion.q2 - 2 * data->quaternion.q3 * data->quaternion.q3 + 1) *57.3;
+        pitch = (dji_f64_t) asinf(-2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q3 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q2) * 57.3;
+        roll = (dji_f64_t) atan2f(2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q3 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q1,
+                                -2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q1 - 2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q2 + 1) *57.3;
+        yaw = (dji_f64_t) atan2f(2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q2 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q3,
+                                -2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q2 - 2 * quat_pack->quaternion.q3 * quat_pack->quaternion.q3 + 1) *57.3;
 
-    USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", data->timestamp.millisecond,
-                          data->timestamp.microsecond);
-    USER_LOG_INFO("euler angles: pitch = %.2f roll = %.2f yaw = %.2f.\r\n", pitch, roll, yaw);
+        USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", quat_pack->timestamp.millisecond, quat_pack->timestamp.microsecond);
+        USER_LOG_INFO("euler angles: pitch = %.2f roll = %.2f yaw = %.2f.\r\n", pitch, roll, yaw);
 
 
-            
-            
-    usleep(10000);
+        acc_raw.x = acc_pack->acc.x;
+        acc_raw.y = acc_pack->acc.y;
+        acc_raw.z = acc_pack->acc.z;
+        USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", acc_pack->timestamp.millisecond, acc_pack->timestamp.microsecond);
+        USER_LOG_INFO("acceleration raw: accx = %.2f accy = %.2f accz = %.2f.\r\n", acc_raw.x, acc_raw.y, acc_raw.z);
+                
+        usleep(10000);
    }
 
 }
@@ -2250,30 +2194,30 @@ void* fcontrol_loop(void* arg)
 {
     
     dji_f64_t pitch, yaw, roll;
+    T_DjiFcSubscriptionAccelerationRaw acc_raw;
 
-    TEST* data = (TEST *)getQuaternionaddress();
+    quatrenion_data_node* quat_pack = (quatrenion_data_node*)get_Quaternion_data_address();
+    acceleration_data_node* acc_pack = (acceleration_data_node*)get_Acceleration_data_address();
 
    while(1){
 
-    pitch = (dji_f64_t) asinf(-2 * data->quaternion.q1 * data->quaternion.q3 + 2 * data->quaternion.q0 * data->quaternion.q2) * 57.3;
-    roll = (dji_f64_t) atan2f(2 * data->quaternion.q2 * data->quaternion.q3 + 2 * data->quaternion.q0 * data->quaternion.q1,
-                             -2 * data->quaternion.q1 * data->quaternion.q1 - 2 * data->quaternion.q2 * data->quaternion.q2 + 1) * 57.3;
-    yaw = (dji_f64_t) atan2f(2 * data->quaternion.q1 * data->quaternion.q2 + 2 * data->quaternion.q0 * data->quaternion.q3,
-                             -2 * data->quaternion.q2 * data->quaternion.q2 - 2 * data->quaternion.q3 * data->quaternion.q3 + 1) *
-          57.3;
+        pitch = (dji_f64_t) asinf(-2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q3 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q2) * 57.3;
+        roll = (dji_f64_t) atan2f(2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q3 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q1,
+                                -2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q1 - 2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q2 + 1) * 57.3;
+        yaw = (dji_f64_t) atan2f(2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q2 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q3,
+                                -2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q2 - 2 * quat_pack->quaternion.q3 * quat_pack->quaternion.q3 + 1) * 57.3;
 
-            printf("quaternion: %f %f %f %f.\n", data->quaternion.q0, data->quaternion.q1, data->quaternion.q2,
-                          data->quaternion.q3);
-            printf("timestamp: millisecond %u microsecond %u.\n", data->timestamp.millisecond,
-                          data->timestamp.microsecond);
 
-            printf("euler angles: pitch = %.2f roll = %.2f yaw = %.2f.\n", pitch, roll, yaw);
+        acc_raw.x = acc_pack->acc.x;
+        acc_raw.y = acc_pack->acc.y;
+        acc_raw.z = acc_pack->acc.z;
 
-            usleep(100000);
+        usleep(100000);
 
 
    }
 
 }
+
 
 /****************** (C) COPYRIGHT DJI Innovations *****END OF FILE****/

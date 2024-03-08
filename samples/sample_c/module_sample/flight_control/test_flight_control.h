@@ -47,6 +47,27 @@ typedef enum {
     SAV_SUB_AND_CTRL_SAMPLE
 } E_DjiTestFlightCtrlSampleSelect;
 
+T_DjiReturnCode All_Topic_Init(void);
+
+/* declaire all subscribed data api here*/
+struct quatrenion_data_node
+{
+    T_DjiFcSubscriptionQuaternion quaternion;
+    T_DjiDataTimestamp timestamp;
+};
+void* get_Quaternion_data_address(void);
+static T_DjiReturnCode Sav_Quaternion_data_Callback(const uint8_t *data, uint16_t dataSize, const T_DjiDataTimestamp *timestamp);
+
+struct acceleration_data_node
+{
+    T_DjiFcSubscriptionAccelerationRaw acc;
+    T_DjiDataTimestamp timestamp;
+};
+void* get_Acceleration_data_address(void);
+static T_DjiReturnCode Sav_Acceleration_data_Callback(const uint8_t *data, uint16_t dataSize, const T_DjiDataTimestamp *timestamp);
+
+/*end of subsribed data api decalration*/
+
 #pragma pack(1)
 typedef struct {
     dji_f32_t x;
