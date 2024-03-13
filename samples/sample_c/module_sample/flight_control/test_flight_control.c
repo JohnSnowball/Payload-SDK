@@ -37,6 +37,7 @@ static void *Quaternion_data_address = NULL;
 static void *Acceleration_data_address = NULL;
 static void *Position_data_address = NULL;
 static void *Velocity_data_address = NULL;
+static void *RC_stick_data_address = NULL;
 
 
 
@@ -305,14 +306,6 @@ T_DjiReturnCode DjiTest_FlightControlInit(void)
 
 T_DjiReturnCode SAV_FlightControlInit(void)
 {
-    /*subscription : 1. acceleration 200Hz 
-                     2. quaterion --> attitude 100Hz 
-                     3. vel&pos 50Hz 
-                     4. battery 5-10Hz
-                     5. RCstick 100Hz 
-                     6. to do: blade or patch info(vel&pos) from stereo camera
-                     7. thrust 50Hz retrive from esc data
-    */
     T_DjiReturnCode returnCode;
     T_DjiFlightControllerRidInfo ridInfo = {0};
 
@@ -1043,58 +1036,11 @@ void SAV_SubscriptionandControlSample()
     float  X_acc_average = 0.0f;
     float  Y_acc_average = 0.0f;
     float  Z_acc_average = 0.0f;
-    int flag_contacted_maybe = false;
-    int flag_drone_blade_in_contact = false;
-    int contact_maybe_counter = 0;
 
 
     int start_single_measurement = false;
     int flag_close_to_blade = false;
 
-    /*
-    todo: make all these control steps in a big loop and check in each loop if the pilot wants to takeover control authority.
-        while((!mission_done or !RC_take_authority or !strong_wind)&&slower_than_50Hz)
-        {
-            1. update drone status;
-
-            2. check if:
-                i.     attitude& velocity& throttle exceeded bounds --> (strong_wind == true) and break;
-                ii.    RC takes over control --> (RC_take_authority == true) and break;
-                iii.   acceleration check --> contacted == true;
-                iiii.  start a single measurement command by pilot --> start_single_measure == true;
-                iiiii. Done command from pilot --> (mission_done == true) and break;
-        
-            3. control:
-                if(far away from blade)
-                    {   control phase1 --> 
-                        check flags, if safe, do approach, trajectory generation
-                        else stabilze for a moment and report}
-                elseif(close to the blade && start_single_measure) 
-                    {   control phase2 --> 
-                        check flags, 
-                        if (safe){
-                            
-                            if(!contacted) {
-                                do fly slowly towards the patch until contact } 
-                            elseif(contacted) {
-                                backoff until distace > 1m 
-                                start_single_measure == false}
-                        else {
-
-                            backoff until distance > 1m 
-                            start_single_measure = false}
-                        
-                }
-                elseif(close to the blade && !start_single_measure){ stabilize }
-                else(reserved case) {stabilize and wait}
-        }
-
-        if(mission_done && RC_connected)  release RC authority ;
-
-        if(RC_take_authority) release RC authority;
-
-        if(strong_wind && RC_connected) fly backwards for 5 sec -> stabilize and warn pilot 
-    */
 
 
 
@@ -1107,35 +1053,6 @@ void SAV_SubscriptionandControlSample()
         float acc_x = Acc_raw.x;
         float acc_y = Acc_raw.y;
         float acc_z = Acc_raw.z;
-
-        //need to fix with more log data, filter coefficients to be determined
-        if((fabs(acc_x - X_acc_average) > 0.01f ) || (fabs(acc_y - Y_acc_average) > 0.01f ) 
-            ||(fabs(acc_y - Y_acc_average) > 0.01f )){
-           
-            flag_contacted_maybe = true;
-            contact_maybe_counter += 2;
-        }
-        else if(flag_contacted_maybe){
-            
-            if(contact_maybe_counter <=1 ){
-                flag_contacted_maybe = false; 
-            }else{
-                contact_maybe_counter -= 1;
-            }
-           
-        }
-        else{
-           
-        }
-
-        if(flag_contacted_maybe && contact_maybe_counter >= 20){
-            flag_drone_blade_in_contact = true;
-        }
-
-        X_acc_average = X_acc_average*0.9f + acc_x*0.1f;
-        Y_acc_average = Y_acc_average*0.9f + acc_y*0.1f;
-        Z_acc_average = Z_acc_average*0.9f + acc_z*0.1f;
-
 
         //attitude, need to be converted in to roll/pitch/yaw, 100hz, might be used to determine contact
         T_DjiFcSubscriptionQuaternion currentQuaternion = DjiTest_FlightControlGetValueOfQuaternion();
@@ -2105,7 +2022,14 @@ DjiTest_FlightControlJoystickCtrlAuthSwitchEventCallback(T_DjiFlightControllerJo
 
 T_DjiReturnCode All_Topic_Init(void)
 {
-
+    /*subscription : 1. acceleration 200Hz 
+                     2. quaterion --> attitude 100Hz 
+                     3. vel&pos 50Hz 
+                     4. battery 5-10Hz
+                     5. RCstick 100Hz 
+                     6. to do: blade or patch info(vel&pos) from stereo camera
+                     7. thrust 50Hz retrive from esc data
+    */
     T_DjiReturnCode returnCode;
 
     returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_QUATERNION, DJI_DATA_SUBSCRIPTION_TOPIC_100_HZ,
@@ -2114,7 +2038,7 @@ T_DjiReturnCode All_Topic_Init(void)
         USER_LOG_ERROR("Subscribe Quaternion failed, error code:0x%08llX", returnCode);
         return returnCode;
     }
-    Quaternion_data_address = malloc(sizeof(quatrenion_data_node));//alloc memory to topic
+    Quaternion_data_address = malloc(sizeof(quatrenion_data_node));
 
 
     returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ACCELERATION_RAW, DJI_DATA_SUBSCRIPTION_TOPIC_200_HZ,
@@ -2123,7 +2047,7 @@ T_DjiReturnCode All_Topic_Init(void)
         USER_LOG_ERROR("Subscribe Acceleration failed, error code:0x%08llX", returnCode);
         return returnCode;
     }
-    Acceleration_data_address = malloc(sizeof(acceleration_data_node));//alloc memory to topic
+    Acceleration_data_address = malloc(sizeof(acceleration_data_node));
 
     //position, lat/lon/alt/sat number, 50Hz
     //position data is strongly base on GPS signal, everytime we use this should check if GPS signal is good, satellite number > 12
@@ -2135,7 +2059,7 @@ T_DjiReturnCode All_Topic_Init(void)
         USER_LOG_ERROR("Subscribe Position failed, error code:0x%08llX", returnCode);
         return returnCode;
     }
-    Position_data_address = malloc(sizeof(position_data_node));//alloc memory to topic
+    Position_data_address = malloc(sizeof(position_data_node));
 
 
     returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_VELOCITY, DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
@@ -2144,8 +2068,16 @@ T_DjiReturnCode All_Topic_Init(void)
         USER_LOG_ERROR("Subscribe Velocity failed, error code:0x%08llX", returnCode);
         return returnCode;
     }
-    Velocity_data_address = malloc(sizeof(velocity_data_node));//alloc memory to topic
+    Velocity_data_address = malloc(sizeof(velocity_data_node));
 
+
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_RC_WITH_FLAG_DATA, DJI_DATA_SUBSCRIPTION_TOPIC_100_HZ,
+                                               Sav_RC_stick_data_Callback);
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe RC sticks failed, error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+    RC_stick_data_address = malloc(sizeof(rc_stick_data_node));
 
 
     return returnCode;
@@ -2172,10 +2104,14 @@ void* get_Velocity_data_address(void)
     return Velocity_data_address;
 }
 
+void* get_RC_stick_data_address(void)
+{
+    return RC_stick_data_address;
+}
 
 static T_DjiReturnCode Sav_Quaternion_data_Callback(const uint8_t *data, uint16_t dataSize,const T_DjiDataTimestamp *timestamp)
 {
-    memcpy(&((quatrenion_data_node*)Quaternion_data_address)->quaternion,data,dataSize);//data copy
+    memcpy(&((quatrenion_data_node*)Quaternion_data_address)->quaternion,data,dataSize);
     memcpy(&((quatrenion_data_node*)Quaternion_data_address)->timestamp,timestamp,sizeof(T_DjiDataTimestamp));
 
     return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
@@ -2183,7 +2119,7 @@ static T_DjiReturnCode Sav_Quaternion_data_Callback(const uint8_t *data, uint16_
 
 static T_DjiReturnCode Sav_Acceleration_data_Callback(const uint8_t *data, uint16_t dataSize, const T_DjiDataTimestamp *timestamp)
 {
-    memcpy(&((acceleration_data_node*)Acceleration_data_address)->acc,data,dataSize);//data copy
+    memcpy(&((acceleration_data_node*)Acceleration_data_address)->acc,data,dataSize);
     memcpy(&((acceleration_data_node*)Acceleration_data_address)->timestamp,timestamp,sizeof(T_DjiDataTimestamp));
 
     return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
@@ -2192,7 +2128,7 @@ static T_DjiReturnCode Sav_Acceleration_data_Callback(const uint8_t *data, uint1
 
 static T_DjiReturnCode Sav_Position_data_Callback(const uint8_t *data, uint16_t dataSize, const T_DjiDataTimestamp *timestamp)
 {
-    memcpy(&((position_data_node*)Position_data_address)->pos,data,dataSize);//data copy
+    memcpy(&((position_data_node*)Position_data_address)->pos,data,dataSize);
     memcpy(&((position_data_node*)Position_data_address)->timestamp,timestamp,sizeof(T_DjiDataTimestamp));
 
     return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
@@ -2202,12 +2138,21 @@ static T_DjiReturnCode Sav_Position_data_Callback(const uint8_t *data, uint16_t 
 
 static T_DjiReturnCode Sav_Velocity_data_Callback(const uint8_t *data, uint16_t dataSize, const T_DjiDataTimestamp *timestamp)
 {
-    memcpy(&((velocity_data_node*)Velocity_data_address)->vel,data,dataSize);//data copy
+    memcpy(&((velocity_data_node*)Velocity_data_address)->vel,data,dataSize);
     memcpy(&((velocity_data_node*)Velocity_data_address)->timestamp,timestamp,sizeof(T_DjiDataTimestamp));
 
     return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
 }
 
+
+static T_DjiReturnCode Sav_RC_stick_data_Callback(const uint8_t *data, uint16_t dataSize, const T_DjiDataTimestamp *timestamp)
+{
+    memcpy(&((rc_stick_data_node*)RC_stick_data_address)->rc,data,dataSize);
+    memcpy(&((rc_stick_data_node*)RC_stick_data_address)->timestamp,timestamp,sizeof(T_DjiDataTimestamp));
+
+    return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
+
+}
 
 void* logger_loop(void* arg)
 {
@@ -2215,11 +2160,13 @@ void* logger_loop(void* arg)
     T_DjiFcSubscriptionAccelerationRaw acc_raw;
     T_DjiFcSubscriptionPositionFused pos_fused;
     T_DjiFcSubscriptionVelocity vel_fused;
+    T_DjiFcSubscriptionRCWithFlagData rc_sticks_flag;
 
     quatrenion_data_node* quat_pack = (quatrenion_data_node*)get_Quaternion_data_address();
     acceleration_data_node* acc_pack = (acceleration_data_node*)get_Acceleration_data_address();
     position_data_node* pos_pack = (position_data_node*)get_Position_data_address();
     velocity_data_node* vel_pack = (velocity_data_node*)get_Velocity_data_address();
+    rc_stick_data_node* rc_pack = (rc_stick_data_node*)get_RC_stick_data_address();
 
    while(1){
 
@@ -2237,7 +2184,7 @@ void* logger_loop(void* arg)
         acc_raw.y = acc_pack->acc.y;
         acc_raw.z = acc_pack->acc.z;
         USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", acc_pack->timestamp.millisecond, acc_pack->timestamp.microsecond);
-        USER_LOG_INFO("acceleration: accx = %.2f accy = %.2f accz = %.2f.\r\n", acc_raw.x, acc_raw.y, acc_raw.z);
+        USER_LOG_INFO("acceleration: accx = %.3f accy = %.3f accz = %.3f.\r\n", acc_raw.x, acc_raw.y, acc_raw.z);
 
 
 
@@ -2245,33 +2192,95 @@ void* logger_loop(void* arg)
         pos_fused.longitude = pos_pack->pos.longitude;
         pos_fused.altitude = pos_pack->pos.altitude;
         USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", pos_pack->timestamp.millisecond, pos_pack->timestamp.microsecond);
-        USER_LOG_INFO("position: lat = %.2f lon = %.2f alt = %.2f.\r\n", pos_fused.latitude, pos_fused.longitude, pos_fused.altitude);
+        USER_LOG_INFO("position: lat = %.6f lon = %.6f alt = %.6f.\r\n", pos_fused.latitude, pos_fused.longitude, pos_fused.altitude);
 
 
         vel_fused.data.x = vel_pack->vel.data.x;
         vel_fused.data.y = vel_pack->vel.data.y;
         vel_fused.data.z = vel_pack->vel.data.z;
         USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", vel_pack->timestamp.millisecond, vel_pack->timestamp.microsecond);
-        USER_LOG_INFO("velocity: velx = %.2f vely = %.2f velz = %.2f.\r\n", vel_fused.data.x, vel_fused.data.y, vel_fused.data.z);
+        USER_LOG_INFO("velocity: velx = %.3f vely = %.3f velz = %.3f.\r\n", vel_fused.data.x, vel_fused.data.y, vel_fused.data.z);
 
-                
+        rc_sticks_flag.pitch = rc_pack->rc.pitch;
+        rc_sticks_flag.roll = rc_pack->rc.roll;
+        rc_sticks_flag.yaw = rc_pack->rc.yaw;
+        rc_sticks_flag.throttle = rc_pack->rc.throttle;
+        rc_sticks_flag.flag.groundConnected = rc_pack->rc.flag.groundconnected;
+        rc_sticks_flag.flag.skyConnected = rc_pack->rc.flag.skyConnected;
+        rc_sticks_flag.flag.logicConnected = rc_pack->rc.flag.logicConnected;
+        USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", rc_pack->timestamp.millisecond, rc_pack->timestamp.microsecond);
+        USER_LOG_INFO("RC stick: RCpitch = %.2f RCroll = %.2f RCyaw = %.2f RCthr = %.2f connected = %d.\r\n", 
+                            rc_sticks_flag.pitch, rc_sticks_flag.roll, rc_sticks_flag.yaw, rc_sticks_flag.throttle, rc_sticks_flag.flag.logicConnected);
+
+
+
         usleep(10000);
    }
 
 }
 void* fcontrol_loop(void* arg)
 {
-    
+    /*
+    todo: make all these control steps in a big loop and check in each loop if the pilot wants to takeover control authority.
+        while((!mission_done or !RC_take_authority or !strong_wind)&&slower_than_50Hz)
+        {
+            1. update drone status;
+
+            2. check if:
+                i.     attitude& velocity& throttle exceeded bounds --> (strong_wind == true) and break;
+                ii.    RC takes over control --> (RC_take_authority == true) and break;
+                iii.   acceleration check --> contacted == true;
+                iiii.  start a single measurement command by pilot --> start_single_measure == true;
+                iiiii. Done command from pilot --> (mission_done == true) and break;
+        
+            3. control:
+                if(far away from blade)
+                    {   control phase1 --> 
+                        check flags, if safe, do approach, trajectory generation
+                        else stabilze for a moment and report}
+                elseif(close to the blade && start_single_measure) 
+                    {   control phase2 --> 
+                        check flags, 
+                        if (safe){
+                            
+                            if(!contacted) {
+                                do fly slowly towards the patch until contact } 
+                            elseif(contacted) {
+                                backoff until distace > 1m 
+                                start_single_measure == false}
+                        else {
+
+                            backoff until distance > 1m 
+                            start_single_measure = false}
+                        
+                }
+                elseif(close to the blade && !start_single_measure){ stabilize }
+                else(reserved case) {stabilize and wait}
+        }
+
+        if(mission_done && RC_connected)  release RC authority ;
+
+        if(RC_take_authority) release RC authority;
+
+        if(strong_wind && RC_connected) fly backwards for 5 sec -> stabilize and warn pilot 
+    */
     dji_f64_t pitch, yaw, roll;
-    T_DjiFcSubscriptionAccelerationRaw acc_raw;
+    T_DjiFcSubscriptionAccelerationRaw acc_raw, acc_average_filtered;
+    uint8_t is_acc_filter_initialized = false;
+    uint8_t initialized_counter = 0;
+    uint8_t flag_contacted_maybe = false;
+    uint8_t flag_drone_blade_in_contact = false; 
+    uint8_t maybe_contact_counter = 0;
     T_DjiFcSubscriptionPositionFused pos_fused;
     T_DjiFcSubscriptionVelocity vel_fused;
+    T_DjiFcSubscriptionRCWithFlagData rc_sticks_flag;
 
 
     quatrenion_data_node* quat_pack = (quatrenion_data_node*)get_Quaternion_data_address();
     acceleration_data_node* acc_pack = (acceleration_data_node*)get_Acceleration_data_address();
     position_data_node* pos_pack = (position_data_node*)get_Position_data_address();
     velocity_data_node* vel_pack = (velocity_data_node*)get_Velocity_data_address();
+    rc_stick_data_node* rc_pack = (rc_stick_data_node*)get_RC_stick_data_address();
 
    while(1){
 
@@ -2287,6 +2296,46 @@ void* fcontrol_loop(void* arg)
         acc_raw.z = acc_pack->acc.z;
 
 
+        /* Determine if contacted, filter coefficients to be determined with precise log data*/
+        if(!is_acc_filter_initialized){
+            acc_average_filtered = acc_raw;
+            initialized_counter += 1;
+
+            if(initialized_counter >= 100){
+                is_acc_filter_initialized = true;
+                initialized_counter = 0;
+            }
+
+        }else{
+            /*how to differ normal accelerating or turbulence or contact? Vibration characteristics: duration & amplitude & direction */
+            if((fabs(acc_raw.x - acc_average_filtered.x) > 0.01f ) || (fabs(acc_raw.y - acc_average_filtered.y) > 0.01f ) 
+                ||(fabs(acc_raw.z - acc_average_filtered.z) > 0.01f )){
+            
+                flag_contacted_maybe = true;
+                maybe_contact_counter += 2;//increase faster?
+            }
+            else if(flag_contacted_maybe){
+                
+                if(maybe_contact_counter <=1){
+                    flag_contacted_maybe = false; 
+                    flag_drone_blade_in_contact = false;
+                }else{
+                    maybe_contact_counter -= 1;//recover slowly?
+                }
+            }
+            else{
+            
+            }
+
+            if(!flag_drone_blade_in_contact && flag_contacted_maybe && maybe_contact_counter >= 20){
+                flag_drone_blade_in_contact = true;
+                USER_LOG_INFO("contacted: millisecond %u microsecond %u.", acc_pack->timestamp.millisecond, acc_pack->timestamp.microsecond);
+            }
+                              
+            acc_average_filtered = 0.05f*acc_raw + 0.95f*acc_average_filtered;
+        }
+        
+
         pos_fused.latitude = pos_pack->pos.latitude;
         pos_fused.longitude = pos_pack->pos.longitude;
         pos_fused.altitude = pos_pack->pos.altitude;
@@ -2295,6 +2344,15 @@ void* fcontrol_loop(void* arg)
         vel_fused.data.x = vel_pack->vel.data.x;
         vel_fused.data.y = vel_pack->vel.data.y;
         vel_fused.data.z = vel_pack->vel.data.z;
+
+                
+        rc_sticks_flag.pitch = rc_pack->rc.pitch;
+        rc_sticks_flag.roll = rc_pack->rc.roll;
+        rc_sticks_flag.yaw = rc_pack->rc.yaw;
+        rc_sticks_flag.throttle = rc_pack->rc.throttle;
+        rc_sticks_flag.flag.groundConnected = rc_pack->rc.flag.groundconnected;
+        rc_sticks_flag.flag.skyConnected = rc_pack->rc.flag.skyConnected;
+        rc_sticks_flag.flag.logicConnected = rc_pack->rc.flag.logicConnected;
 
 
         usleep(100000);
