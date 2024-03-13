@@ -66,6 +66,22 @@ struct acceleration_data_node
 void* get_Acceleration_data_address(void);
 static T_DjiReturnCode Sav_Acceleration_data_Callback(const uint8_t *data, uint16_t dataSize, const T_DjiDataTimestamp *timestamp);
 
+struct position_data_node
+{
+    T_DjiFcSubscriptionPositionFused pos;
+    T_DjiDataTimestamp timestamp;
+};
+void* get_Position_data_address(void);
+static T_DjiReturnCode Sav_Position_data_Callback(const uint8_t *data, uint16_t dataSize, const T_DjiDataTimestamp *timestamp);
+
+struct velocity_data_node
+{
+    T_DjiFcSubscriptionVelocity vel;
+    T_DjiDataTimestamp timestamp;
+};
+void* get_Velocity_data_address(void);
+static T_DjiReturnCode Sav_Velocity_data_Callback(const uint8_t *data, uint16_t dataSize, const T_DjiDataTimestamp *timestamp);
+
 /*end of subsribed data api decalration*/
 
 #pragma pack(1)

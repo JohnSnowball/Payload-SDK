@@ -35,6 +35,8 @@
 
 static void *Quaternion_data_address = NULL;
 static void *Acceleration_data_address = NULL;
+static void *Position_data_address = NULL;
+static void *Velocity_data_address = NULL;
 
 
 
@@ -2127,6 +2129,23 @@ T_DjiReturnCode All_Topic_Init(void)
     //position data is strongly base on GPS signal, everytime we use this should check if GPS signal is good, satellite number > 12
     //need to do: always enable RTK for M350!!!
     /* E_DjiFlightControllerRtkPositionEnableStatus == 1*/
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_POSITION_FUSED, DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
+                                               Sav_Position_data_Callback);
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe Position failed, error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+    Position_data_address = malloc(sizeof(position_data_node));//alloc memory to topic
+
+
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_VELOCITY, DJI_DATA_SUBSCRIPTION_TOPIC_50_HZ,
+                                               Sav_Velocity_data_Callback);
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe Velocity failed, error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+    Velocity_data_address = malloc(sizeof(velocity_data_node));//alloc memory to topic
+
 
 
     return returnCode;
@@ -2142,6 +2161,17 @@ void* get_Acceleration_data_address(void)
 {
     return Acceleration_data_address;
 }
+
+void* get_Position_data_address(void)
+{
+    return Position_data_address;
+}
+
+void* get_Velocity_data_address(void)
+{
+    return Velocity_data_address;
+}
+
 
 static T_DjiReturnCode Sav_Quaternion_data_Callback(const uint8_t *data, uint16_t dataSize,const T_DjiDataTimestamp *timestamp)
 {
@@ -2160,13 +2190,36 @@ static T_DjiReturnCode Sav_Acceleration_data_Callback(const uint8_t *data, uint1
 
 }
 
+static T_DjiReturnCode Sav_Position_data_Callback(const uint8_t *data, uint16_t dataSize, const T_DjiDataTimestamp *timestamp)
+{
+    memcpy(&((position_data_node*)Position_data_address)->pos,data,dataSize);//data copy
+    memcpy(&((position_data_node*)Position_data_address)->timestamp,timestamp,sizeof(T_DjiDataTimestamp));
+
+    return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
+
+}
+
+
+static T_DjiReturnCode Sav_Velocity_data_Callback(const uint8_t *data, uint16_t dataSize, const T_DjiDataTimestamp *timestamp)
+{
+    memcpy(&((velocity_data_node*)Velocity_data_address)->vel,data,dataSize);//data copy
+    memcpy(&((velocity_data_node*)Velocity_data_address)->timestamp,timestamp,sizeof(T_DjiDataTimestamp));
+
+    return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
+}
+
+
 void* logger_loop(void* arg)
 {
     dji_f64_t pitch, yaw, roll;
     T_DjiFcSubscriptionAccelerationRaw acc_raw;
+    T_DjiFcSubscriptionPositionFused pos_fused;
+    T_DjiFcSubscriptionVelocity vel_fused;
 
     quatrenion_data_node* quat_pack = (quatrenion_data_node*)get_Quaternion_data_address();
     acceleration_data_node* acc_pack = (acceleration_data_node*)get_Acceleration_data_address();
+    position_data_node* pos_pack = (position_data_node*)get_Position_data_address();
+    velocity_data_node* vel_pack = (velocity_data_node*)get_Velocity_data_address();
 
    while(1){
 
@@ -2177,14 +2230,30 @@ void* logger_loop(void* arg)
                                 -2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q2 - 2 * quat_pack->quaternion.q3 * quat_pack->quaternion.q3 + 1) *57.3;
 
         USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", quat_pack->timestamp.millisecond, quat_pack->timestamp.microsecond);
-        USER_LOG_INFO("euler angles: pitch = %.2f roll = %.2f yaw = %.2f.\r\n", pitch, roll, yaw);
+        USER_LOG_INFO("attitude: pitch = %.2f roll = %.2f yaw = %.2f.\r\n", pitch, roll, yaw);
 
 
         acc_raw.x = acc_pack->acc.x;
         acc_raw.y = acc_pack->acc.y;
         acc_raw.z = acc_pack->acc.z;
         USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", acc_pack->timestamp.millisecond, acc_pack->timestamp.microsecond);
-        USER_LOG_INFO("acceleration raw: accx = %.2f accy = %.2f accz = %.2f.\r\n", acc_raw.x, acc_raw.y, acc_raw.z);
+        USER_LOG_INFO("acceleration: accx = %.2f accy = %.2f accz = %.2f.\r\n", acc_raw.x, acc_raw.y, acc_raw.z);
+
+
+
+        pos_fused.latitude = pos_pack->pos.latitude;
+        pos_fused.longitude = pos_pack->pos.longitude;
+        pos_fused.altitude = pos_pack->pos.altitude;
+        USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", pos_pack->timestamp.millisecond, pos_pack->timestamp.microsecond);
+        USER_LOG_INFO("position: lat = %.2f lon = %.2f alt = %.2f.\r\n", pos_fused.latitude, pos_fused.longitude, pos_fused.altitude);
+
+
+        vel_fused.data.x = vel_pack->vel.data.x;
+        vel_fused.data.y = vel_pack->vel.data.y;
+        vel_fused.data.z = vel_pack->vel.data.z;
+        USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", vel_pack->timestamp.millisecond, vel_pack->timestamp.microsecond);
+        USER_LOG_INFO("velocity: velx = %.2f vely = %.2f velz = %.2f.\r\n", vel_fused.data.x, vel_fused.data.y, vel_fused.data.z);
+
                 
         usleep(10000);
    }
@@ -2195,9 +2264,14 @@ void* fcontrol_loop(void* arg)
     
     dji_f64_t pitch, yaw, roll;
     T_DjiFcSubscriptionAccelerationRaw acc_raw;
+    T_DjiFcSubscriptionPositionFused pos_fused;
+    T_DjiFcSubscriptionVelocity vel_fused;
+
 
     quatrenion_data_node* quat_pack = (quatrenion_data_node*)get_Quaternion_data_address();
     acceleration_data_node* acc_pack = (acceleration_data_node*)get_Acceleration_data_address();
+    position_data_node* pos_pack = (position_data_node*)get_Position_data_address();
+    velocity_data_node* vel_pack = (velocity_data_node*)get_Velocity_data_address();
 
    while(1){
 
@@ -2211,6 +2285,17 @@ void* fcontrol_loop(void* arg)
         acc_raw.x = acc_pack->acc.x;
         acc_raw.y = acc_pack->acc.y;
         acc_raw.z = acc_pack->acc.z;
+
+
+        pos_fused.latitude = pos_pack->pos.latitude;
+        pos_fused.longitude = pos_pack->pos.longitude;
+        pos_fused.altitude = pos_pack->pos.altitude;
+
+
+        vel_fused.data.x = vel_pack->vel.data.x;
+        vel_fused.data.y = vel_pack->vel.data.y;
+        vel_fused.data.z = vel_pack->vel.data.z;
+
 
         usleep(100000);
 
