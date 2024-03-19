@@ -2156,6 +2156,13 @@ static T_DjiReturnCode Sav_RC_stick_data_Callback(const uint8_t *data, uint16_t 
 
 void* logger_loop(void* arg)
 {
+    T_DjiOsalHandler *osalHandler = DjiPlatform_GetOsalHandler();
+    uint32_t elapsedTimeInMs = 0;
+    uint32_t loopstartTimeInMs = 0;
+    uint32_t loopendTimeInMs = 0;
+    uint32_t iteration_times = 0;
+    
+    
     dji_f64_t pitch, yaw, roll;
     T_DjiFcSubscriptionAccelerationRaw acc_raw;
     T_DjiFcSubscriptionPositionFused pos_fused;
@@ -2168,7 +2175,13 @@ void* logger_loop(void* arg)
     velocity_data_node* vel_pack = (velocity_data_node*)get_Velocity_data_address();
     rc_stick_data_node* rc_pack = (rc_stick_data_node*)get_RC_stick_data_address();
 
-   while(1){
+    osalHandler->TaskSleepMs(1000);//wait for 1 sec for initialization
+
+
+    while(1){
+
+        osalHandler->GetTimeMs(&loopstartTimeInMs);
+        
 
         pitch = (dji_f64_t) asinf(-2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q3 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q2) * 57.3;
         roll = (dji_f64_t) atan2f(2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q3 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q1,
@@ -2213,9 +2226,16 @@ void* logger_loop(void* arg)
                             rc_sticks_flag.pitch, rc_sticks_flag.roll, rc_sticks_flag.yaw, rc_sticks_flag.throttle, rc_sticks_flag.flag.logicConnected);
 
 
+        iteration_times +=1;
+        osalHandler->GetTimeMs(&loopendTimeInMs);
+        elapsedTimeInMs += loopendTimeInMs - loopstartTimeInMs;
 
-        usleep(10000);
-   }
+        if(iteration_times%100 == 1){
+            USER_LOG_INFO("100 logger loops take %u microsecond", elapsedTimeInMs);
+        }
+
+        osalHandler->TaskSleepMs(20);// how to eliminate repeated points in the log?
+    }
 
 }
 void* fcontrol_loop(void* arg)
@@ -2227,12 +2247,17 @@ void* fcontrol_loop(void* arg)
             1. update drone status;
 
             2. check if:
-                i.     attitude& velocity& throttle exceeded bounds --> (strong_wind == true) and break;
-                ii.    RC takes over control --> (RC_take_authority == true) and break;
-                iii.   acceleration check --> contacted == true;
-                iiii.  start a single measurement command by pilot --> start_single_measure == true;
-                iiiii. Done command from pilot --> (mission_done == true) and break;
-        
+                1. attitude& velocity& throttle exceeded bounds --> (strong_wind == true) and break;
+                2. RC takes over control --> (RC_take_authority == true) and break;
+                3. acceleration check --> contacted == true;
+                4. start a single measurement command by pilot --> start_single_measure == true;
+                5. Done command from pilot --> (mission_done == true) and break;
+                6. Check if Joystick is still in control or disrupted by pilot, JoystickCtrlAuthorityEventInfo;
+                7. Re-enter or not initialized?
+
+                if break:
+                first ExecuteEmergencyBrakeAction; for 0.x sec?
+                second fly backwards slowly, for x sec?
             3. control:
                 if(far away from blade)
                     {   control phase1 --> 
@@ -2264,12 +2289,25 @@ void* fcontrol_loop(void* arg)
 
         if(strong_wind && RC_connected) fly backwards for 5 sec -> stabilize and warn pilot 
     */
+
+    T_DjiReturnCode returnCode;
+
+    T_DjiOsalHandler *osalHandler = DjiPlatform_GetOsalHandler();
+    uint32_t elapsedTimeInMs = 0;
+    uint32_t loopstartTimeInMs = 0;
+    uint32_t loopendTimeInMs = 0;
+    uint32_t iteration_times = 0;
+
+
     dji_f64_t pitch, yaw, roll;
     T_DjiFcSubscriptionAccelerationRaw acc_raw, acc_average_filtered;
     uint8_t is_acc_filter_initialized = false;
+    uint8_t is_joystick_auth_obtained = false;
+    uint8_t is_takeoff_finished = false;
     uint8_t initialized_counter = 0;
     uint8_t flag_contacted_maybe = false;
     uint8_t flag_drone_blade_in_contact = false; 
+    uint8_t flag_break_by_RC = false;
     uint8_t maybe_contact_counter = 0;
     T_DjiFcSubscriptionPositionFused pos_fused;
     T_DjiFcSubscriptionVelocity vel_fused;
@@ -2282,7 +2320,22 @@ void* fcontrol_loop(void* arg)
     velocity_data_node* vel_pack = (velocity_data_node*)get_Velocity_data_address();
     rc_stick_data_node* rc_pack = (rc_stick_data_node*)get_RC_stick_data_address();
 
-   while(1){
+
+    T_DjiFlightControllerJoystickMode joystickMode = {
+        DJI_FLIGHT_CONTROLLER_HORIZONTAL_POSITION_CONTROL_MODE,
+        DJI_FLIGHT_CONTROLLER_VERTICAL_POSITION_CONTROL_MODE,
+        DJI_FLIGHT_CONTROLLER_YAW_ANGLE_CONTROL_MODE,
+        DJI_FLIGHT_CONTROLLER_HORIZONTAL_GROUND_COORDINATE,
+        DJI_FLIGHT_CONTROLLER_STABLE_CONTROL_MODE_ENABLE,
+    };//default fly mode
+
+
+    osalHandler->TaskSleepMs(1000);//wait for 1 sec for initialization
+
+
+    while(1){
+
+        osalHandler->GetTimeMs(&loopstartTimeInMs);
 
         pitch = (dji_f64_t) asinf(-2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q3 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q2) * 57.3;
         roll = (dji_f64_t) atan2f(2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q3 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q1,
@@ -2307,7 +2360,8 @@ void* fcontrol_loop(void* arg)
             }
 
         }else{
-            /*how to differ normal accelerating or turbulence or contact? Vibration characteristics: duration & amplitude & direction */
+            /*how to differ normal accelerating or turbulence or contact? Vibration characteristics: duration & amplitude & direction.
+              other than an average filter, a SVM(supported vector machine) could be a good idea to make classification.*/
             if((fabs(acc_raw.x - acc_average_filtered.x) > 0.01f ) || (fabs(acc_raw.y - acc_average_filtered.y) > 0.01f ) 
                 ||(fabs(acc_raw.z - acc_average_filtered.z) > 0.01f )){
             
@@ -2327,12 +2381,14 @@ void* fcontrol_loop(void* arg)
             
             }
 
-            if(!flag_drone_blade_in_contact && flag_contacted_maybe && maybe_contact_counter >= 20){
+            if(!flag_drone_blade_in_contact && flag_contacted_maybe && maybe_contact_counter >= 200){
                 flag_drone_blade_in_contact = true;
                 USER_LOG_INFO("contacted: millisecond %u microsecond %u.", acc_pack->timestamp.millisecond, acc_pack->timestamp.microsecond);
             }
                               
             acc_average_filtered = 0.05f*acc_raw + 0.95f*acc_average_filtered;
+            USER_LOG_INFO("timestamp: millisecond %u.", loopstartTimeInMs);
+            USER_LOG_INFO("filtered acc: accx = %.3f accy = %.3f accz = %.3f.\r\n", acc_average_filtered.x, acc_average_filtered.y, acc_average_filtered.z);
         }
         
 
@@ -2355,10 +2411,95 @@ void* fcontrol_loop(void* arg)
         rc_sticks_flag.flag.logicConnected = rc_pack->rc.flag.logicConnected;
 
 
-        usleep(100000);
+        /*first check if we breaks*/
+        if(rc_sticks_flag.throttle >= 0.8f){
+            flag_break_by_RC = true;
+        }
+
+        /*brake stabilize and release control to RC*/
+        if(flag_break_by_RC && is_joystick_auth_obtained){
+            USER_LOG_INFO("break by RC");
+            DjiTest_WidgetLogAppend("break by RC");
+            returnCode = DjiFlightController_ExecuteEmergencyBrakeAction();
+            if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+                USER_LOG_ERROR("Emergency brake failed, error code: 0x%08X", returnCode);
+                goto out;
+            }
 
 
-   }
+            USER_LOG_INFO("Release joystick authority");
+            DjiTest_WidgetLogAppend("Release joystick authority");
+            returnCode = DjiFlightController_ReleaseJoystickCtrlAuthority();
+            if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+                USER_LOG_ERROR("Release joystick authority failed, error code: 0x%08X", returnCode);
+                goto out;
+            }
+            is_joystick_auth_obtained = false;
+            osalHandler->TaskSleepMs(100000);//sleep like forever
+        }
+
+
+        /*get joystick authority*/
+        if(!is_joystick_auth_obtained){
+            USER_LOG_INFO("Obtain joystick control authority.");
+            DjiTest_WidgetLogAppend("Obtain joystick control authority.");
+            returnCode = DjiFlightController_ObtainJoystickCtrlAuthority();
+            if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+                USER_LOG_ERROR("Obtain joystick authority failed, error code: 0x%08X", returnCode);
+                goto out;
+            }
+            is_joystick_auth_obtained = true;
+            s_osalHandler->TaskSleepMs(1000);
+        }
+
+        /*takeoff, just for simulation*/
+        if(!is_takeoff_finished){
+            USER_LOG_INFO("Take off\r\n");
+            DjiTest_WidgetLogAppend("Take off\r\n");
+
+            if (!DjiTest_FlightControlMonitoredTakeoff()) {
+                USER_LOG_ERROR("Take off failed");
+                goto out;
+            }
+
+            is_takeoff_finished = true;
+            USER_LOG_INFO("Successful take off\r\n");
+            DjiTest_WidgetLogAppend("Successful take off\r\n");
+            s_osalHandler->TaskSleepMs(4000);
+        }
+        /*end of takeoff*/
+
+        /*mini control loop*/
+        if(is_takeoff_finished){
+            /*switch to velocity control mode*/
+            joystickMode = {
+                DJI_FLIGHT_CONTROLLER_HORIZONTAL_VELOCITY_CONTROL_MODE,
+                DJI_FLIGHT_CONTROLLER_VERTICAL_VELOCITY_CONTROL_MODE,
+                DJI_FLIGHT_CONTROLLER_YAW_ANGLE_RATE_CONTROL_MODE,
+                DJI_FLIGHT_CONTROLLER_HORIZONTAL_GROUND_COORDINATE,
+                DJI_FLIGHT_CONTROLLER_STABLE_CONTROL_MODE_ENABLE,
+            };
+
+            DjiFlightController_SetJoystickMode(joystickMode);
+            T_DjiFlightControllerJoystickCommand joystickCommand = {0.1f, 1.1f, 0.5f, 0.1f};
+
+            /*execution each loop when activated*/
+            DjiFlightController_ExecuteJoystickAction(joystickCommand);
+        }
+
+        /*time record*/
+        iteration_times +=1;
+        osalHandler->GetTimeMs(&loopendTimeInMs);
+        elapsedTimeInMs += loopendTimeInMs - loopstartTimeInMs;
+
+        if(iteration_times%100 == 1){
+            USER_LOG_INFO("100 control loops take %u microsecond", elapsedTimeInMs);
+        }
+        /*time record*/
+
+        osalHandler->TaskSleepMs(20);//try 20 -> 15 -> 10 -> 5 -> 2(?)
+
+    }
 
 }
 
