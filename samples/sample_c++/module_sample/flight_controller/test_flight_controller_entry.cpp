@@ -63,6 +63,7 @@ start:
         << "| [8] Waypoint 3.0 sample - run airline mission by kmz file (not support on M300 RTK)              |\n"
         << "| [9] Interest point sample - run interest point mission by settings (only support on M3E/M3T)     |\n"
         << "| [s] SAV sample                                                                                 |\n"
+        << "| [l] control and logger sample                                                                    |\n"
         << std::endl;
 
     std::cin >> inputSelectSample;
