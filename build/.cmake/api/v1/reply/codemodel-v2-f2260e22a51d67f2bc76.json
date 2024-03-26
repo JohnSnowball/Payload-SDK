@@ -1,0 +1,139 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-7344e23937572ea866d7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "samples/sample_c/platform/linux/manifold2",
+					"jsonFile" : "directory-samples.sample_c.platform.linux.manifold2-Debug-8754dede6f25771831b7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "samples/sample_c/platform/linux/manifold2",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "samples/sample_c++/platform/linux/manifold2",
+					"jsonFile" : "directory-samples.sample_c++.platform.linux.manifold2-Debug-f8fdac4effdc4b11cb19.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 2,
+					"source" : "samples/sample_c++/platform/linux/manifold2",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "entry",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "dji_sdk_demo_linux",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "dji_sdk_demo_linux_cxx",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "dji_sdk_demo_linux::@959c83024036ce89bd96",
+					"jsonFile" : "target-dji_sdk_demo_linux-Debug-d26f836d778ac7221060.json",
+					"name" : "dji_sdk_demo_linux",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "dji_sdk_demo_linux_cxx::@8fe75fd253ae634bef86",
+					"jsonFile" : "target-dji_sdk_demo_linux_cxx-Debug-c4eea16e22cd53682fb4.json",
+					"name" : "dji_sdk_demo_linux_cxx",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "entry::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-entry-Debug-d7e11847175aecd858e3.json",
+					"name" : "entry",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/nvidia/workspace_cy/Payload-SDK/build",
+		"source" : "/home/nvidia/workspace_cy/Payload-SDK"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

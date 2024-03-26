@@ -1,6 +1,6 @@
 The system is: Linux - 4.9.201-tegra - aarch64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
-Compiler: /usr/bin/cc 
+Compiler: /usr/bin/aarch64-linux-gnu-gcc 
 Build flags: 
 Id flags:  
 
@@ -13,7 +13,7 @@ Compilation of the C compiler identification source "CMakeCCompilerId.c" produce
 The C compiler identification is GNU, found in "/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/3.25.0/CompilerIdC/a.out"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
-Compiler: /usr/bin/c++ 
+Compiler: /usr/bin/aarch64-linux-gnu-g++ 
 Build flags: 
 Id flags:  
 
@@ -26,20 +26,20 @@ Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" p
 The CXX compiler identification is GNU, found in "/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/3.25.0/CompilerIdCXX/a.out"
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: /home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-dl4tag
+Change Dir: /home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-w0kI9a
 
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_a6014/fast && /usr/bin/make  -f CMakeFiles/cmTC_a6014.dir/build.make CMakeFiles/cmTC_a6014.dir/build
-make[1]: Entering directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-dl4tag'
-Building C object CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o
-/usr/bin/cc   -v -o CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake-3.25/Modules/CMakeCCompilerABI.c
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_5b773/fast && /usr/bin/make  -f CMakeFiles/cmTC_5b773.dir/build.make CMakeFiles/cmTC_5b773.dir/build
+make[1]: Entering directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-w0kI9a'
+Building C object CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o
+/usr/bin/aarch64-linux-gnu-gcc   -v -o CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake-3.25/Modules/CMakeCCompilerABI.c
 Using built-in specs.
-COLLECT_GCC=/usr/bin/cc
+COLLECT_GCC=/usr/bin/aarch64-linux-gnu-gcc
 Target: aarch64-linux-gnu
 Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=aarch64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=aarch64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu
 Thread model: posix
 gcc version 7.5.0 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 
-COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o' '-c' '-mlittle-endian' '-mabi=lp64'
- /usr/lib/gcc/aarch64-linux-gnu/7/cc1 -quiet -v -imultiarch aarch64-linux-gnu /usr/local/share/cmake-3.25/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mlittle-endian -mabi=lp64 -auxbase-strip CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/ccrbHMFa.s
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o' '-c' '-mlittle-endian' '-mabi=lp64'
+ /usr/lib/gcc/aarch64-linux-gnu/7/cc1 -quiet -v -imultiarch aarch64-linux-gnu /usr/local/share/cmake-3.25/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mlittle-endian -mabi=lp64 -auxbase-strip CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/ccNEAj8g.s
 GNU C11 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) version 7.5.0 (aarch64-linux-gnu)
 	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP
 
@@ -59,17 +59,17 @@ GNU C11 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) version 7.5.0 (aarch64-linux-gnu)
 
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 Compiler executable checksum: c19fc5c64e59a2c8da3d8cc8208e4481
-COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o' '-c' '-mlittle-endian' '-mabi=lp64'
- as -v -EL -mabi=lp64 -o CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o /tmp/ccrbHMFa.s
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o' '-c' '-mlittle-endian' '-mabi=lp64'
+ as -v -EL -mabi=lp64 -o CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o /tmp/ccNEAj8g.s
 GNU assembler version 2.30 (aarch64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.30
 COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o' '-c' '-mlittle-endian' '-mabi=lp64'
-Linking C executable cmTC_a6014
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a6014.dir/link.txt --verbose=1
-/usr/bin/cc  -v -rdynamic CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o -o cmTC_a6014 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o' '-c' '-mlittle-endian' '-mabi=lp64'
+Linking C executable cmTC_5b773
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5b773.dir/link.txt --verbose=1
+/usr/bin/aarch64-linux-gnu-gcc  -v -rdynamic CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o -o cmTC_5b773 
 Using built-in specs.
-COLLECT_GCC=/usr/bin/cc
+COLLECT_GCC=/usr/bin/aarch64-linux-gnu-gcc
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper
 Target: aarch64-linux-gnu
 Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=aarch64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=aarch64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu
@@ -77,10 +77,10 @@ Thread model: posix
 gcc version 7.5.0 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 
 COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_a6014' '-mlittle-endian' '-mabi=lp64'
- /usr/lib/gcc/aarch64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccH0Ogij.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_a6014 /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/aarch64-linux-gnu/7 -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/7/../../.. CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_a6014' '-mlittle-endian' '-mabi=lp64'
-make[1]: Leaving directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-dl4tag'
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_5b773' '-mlittle-endian' '-mabi=lp64'
+ /usr/lib/gcc/aarch64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccvWXXak.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_5b773 /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/aarch64-linux-gnu/7 -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/7/../../.. CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_5b773' '-mlittle-endian' '-mabi=lp64'
+make[1]: Leaving directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-w0kI9a'
 
 
 
@@ -102,21 +102,21 @@ Parsed C implicit include dir info from above output: rv=done
 
 
 Parsed C implicit link information from above output:
-  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-dl4tag]
+  link line regex: [^( *|.*[/\])(aarch64-linux-gnu-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-w0kI9a]
   ignore line: []
-  ignore line: [Run Build Command(s):/usr/bin/make -f Makefile cmTC_a6014/fast && /usr/bin/make  -f CMakeFiles/cmTC_a6014.dir/build.make CMakeFiles/cmTC_a6014.dir/build]
-  ignore line: [make[1]: Entering directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-dl4tag']
-  ignore line: [Building C object CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake-3.25/Modules/CMakeCCompilerABI.c]
+  ignore line: [Run Build Command(s):/usr/bin/make -f Makefile cmTC_5b773/fast && /usr/bin/make  -f CMakeFiles/cmTC_5b773.dir/build.make CMakeFiles/cmTC_5b773.dir/build]
+  ignore line: [make[1]: Entering directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-w0kI9a']
+  ignore line: [Building C object CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/aarch64-linux-gnu-gcc   -v -o CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake-3.25/Modules/CMakeCCompilerABI.c]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_GCC=/usr/bin/aarch64-linux-gnu-gcc]
   ignore line: [Target: aarch64-linux-gnu]
   ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c ada c++ go d fortran objc obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=aarch64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=aarch64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu]
   ignore line: [Thread model: posix]
   ignore line: [gcc version 7.5.0 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) ]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o' '-c' '-mlittle-endian' '-mabi=lp64']
-  ignore line: [ /usr/lib/gcc/aarch64-linux-gnu/7/cc1 -quiet -v -imultiarch aarch64-linux-gnu /usr/local/share/cmake-3.25/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mlittle-endian -mabi=lp64 -auxbase-strip CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/ccrbHMFa.s]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o' '-c' '-mlittle-endian' '-mabi=lp64']
+  ignore line: [ /usr/lib/gcc/aarch64-linux-gnu/7/cc1 -quiet -v -imultiarch aarch64-linux-gnu /usr/local/share/cmake-3.25/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mlittle-endian -mabi=lp64 -auxbase-strip CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/ccNEAj8g.s]
   ignore line: [GNU C11 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) version 7.5.0 (aarch64-linux-gnu)]
   ignore line: [	compiled by GNU C version 7.5.0  GMP version 6.1.2  MPFR version 4.0.1  MPC version 1.1.0  isl version isl-0.19-GMP]
   ignore line: []
@@ -136,17 +136,17 @@ Parsed C implicit link information from above output:
   ignore line: []
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
   ignore line: [Compiler executable checksum: c19fc5c64e59a2c8da3d8cc8208e4481]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o' '-c' '-mlittle-endian' '-mabi=lp64']
-  ignore line: [ as -v -EL -mabi=lp64 -o CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o /tmp/ccrbHMFa.s]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o' '-c' '-mlittle-endian' '-mabi=lp64']
+  ignore line: [ as -v -EL -mabi=lp64 -o CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o /tmp/ccNEAj8g.s]
   ignore line: [GNU assembler version 2.30 (aarch64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.30]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o' '-c' '-mlittle-endian' '-mabi=lp64']
-  ignore line: [Linking C executable cmTC_a6014]
-  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a6014.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/cc  -v -rdynamic CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o -o cmTC_a6014 ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o' '-c' '-mlittle-endian' '-mabi=lp64']
+  ignore line: [Linking C executable cmTC_5b773]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5b773.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/aarch64-linux-gnu-gcc  -v -rdynamic CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o -o cmTC_5b773 ]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_GCC=/usr/bin/aarch64-linux-gnu-gcc]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper]
   ignore line: [Target: aarch64-linux-gnu]
   ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c ada c++ go d fortran objc obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=aarch64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=aarch64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu]
@@ -154,13 +154,13 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 7.5.0 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_a6014' '-mlittle-endian' '-mabi=lp64']
-  link line: [ /usr/lib/gcc/aarch64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccH0Ogij.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_a6014 /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/aarch64-linux-gnu/7 -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/7/../../.. CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_5b773' '-mlittle-endian' '-mabi=lp64']
+  link line: [ /usr/lib/gcc/aarch64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccvWXXak.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_5b773 /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/aarch64-linux-gnu/7 -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/7/../../.. CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/aarch64-linux-gnu/7/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccH0Ogij.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccvWXXak.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -181,7 +181,7 @@ Parsed C implicit link information from above output:
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_a6014] ==> ignore
+    arg [cmTC_5b773] ==> ignore
     arg [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o] ==> obj [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o]
     arg [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o] ==> obj [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o]
     arg [/usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o] ==> obj [/usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o]
@@ -193,7 +193,7 @@ Parsed C implicit link information from above output:
     arg [-L/usr/lib/aarch64-linux-gnu] ==> dir [/usr/lib/aarch64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/aarch64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../..]
-    arg [CMakeFiles/cmTC_a6014.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_5b773.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--push-state] ==> ignore
     arg [--as-needed] ==> ignore
@@ -225,20 +225,20 @@ Parsed C implicit link information from above output:
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-ljuMDu
+Change Dir: /home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-Idu0Iu
 
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_9c8fb/fast && /usr/bin/make  -f CMakeFiles/cmTC_9c8fb.dir/build.make CMakeFiles/cmTC_9c8fb.dir/build
-make[1]: Entering directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-ljuMDu'
-Building CXX object CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/c++   -v -o CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.25/Modules/CMakeCXXCompilerABI.cpp
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_71864/fast && /usr/bin/make  -f CMakeFiles/cmTC_71864.dir/build.make CMakeFiles/cmTC_71864.dir/build
+make[1]: Entering directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-Idu0Iu'
+Building CXX object CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/aarch64-linux-gnu-g++   -v -o CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.25/Modules/CMakeCXXCompilerABI.cpp
 Using built-in specs.
-COLLECT_GCC=/usr/bin/c++
+COLLECT_GCC=/usr/bin/aarch64-linux-gnu-g++
 Target: aarch64-linux-gnu
 Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=aarch64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=aarch64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu
 Thread model: posix
 gcc version 7.5.0 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 
-COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
- /usr/lib/gcc/aarch64-linux-gnu/7/cc1plus -quiet -v -imultiarch aarch64-linux-gnu -D_GNU_SOURCE /usr/local/share/cmake-3.25/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mlittle-endian -mabi=lp64 -auxbase-strip CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/cc7DKUku.s
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
+ /usr/lib/gcc/aarch64-linux-gnu/7/cc1plus -quiet -v -imultiarch aarch64-linux-gnu -D_GNU_SOURCE /usr/local/share/cmake-3.25/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mlittle-endian -mabi=lp64 -auxbase-strip CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/ccPyEdyz.s
 GNU C++14 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) version 7.5.0 (aarch64-linux-gnu)
 	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP
 
@@ -262,17 +262,17 @@ GNU C++14 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) version 7.5.0 (aarch64-linux-gnu)
 
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 Compiler executable checksum: 267235b6617dadf512d9def64c54895c
-COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
- as -v -EL -mabi=lp64 -o CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o /tmp/cc7DKUku.s
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
+ as -v -EL -mabi=lp64 -o CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccPyEdyz.s
 GNU assembler version 2.30 (aarch64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.30
 COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
-Linking CXX executable cmTC_9c8fb
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9c8fb.dir/link.txt --verbose=1
-/usr/bin/c++  -v -rdynamic CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_9c8fb 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
+Linking CXX executable cmTC_71864
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_71864.dir/link.txt --verbose=1
+/usr/bin/aarch64-linux-gnu-g++  -v -rdynamic CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_71864 
 Using built-in specs.
-COLLECT_GCC=/usr/bin/c++
+COLLECT_GCC=/usr/bin/aarch64-linux-gnu-g++
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper
 Target: aarch64-linux-gnu
 Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=aarch64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=aarch64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu
@@ -280,10 +280,10 @@ Thread model: posix
 gcc version 7.5.0 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 
 COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_9c8fb' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
- /usr/lib/gcc/aarch64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccNCO1ky.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_9c8fb /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/aarch64-linux-gnu/7 -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/7/../../.. CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_9c8fb' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
-make[1]: Leaving directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-ljuMDu'
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_71864' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
+ /usr/lib/gcc/aarch64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccz5EBSD.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_71864 /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/aarch64-linux-gnu/7 -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/7/../../.. CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_71864' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64'
+make[1]: Leaving directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-Idu0Iu'
 
 
 
@@ -311,21 +311,21 @@ Parsed CXX implicit include dir info from above output: rv=done
 
 
 Parsed CXX implicit link information from above output:
-  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-ljuMDu]
+  link line regex: [^( *|.*[/\])(aarch64-linux-gnu-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-Idu0Iu]
   ignore line: []
-  ignore line: [Run Build Command(s):/usr/bin/make -f Makefile cmTC_9c8fb/fast && /usr/bin/make  -f CMakeFiles/cmTC_9c8fb.dir/build.make CMakeFiles/cmTC_9c8fb.dir/build]
-  ignore line: [make[1]: Entering directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-ljuMDu']
-  ignore line: [Building CXX object CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/c++   -v -o CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.25/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Run Build Command(s):/usr/bin/make -f Makefile cmTC_71864/fast && /usr/bin/make  -f CMakeFiles/cmTC_71864.dir/build.make CMakeFiles/cmTC_71864.dir/build]
+  ignore line: [make[1]: Entering directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-Idu0Iu']
+  ignore line: [Building CXX object CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/aarch64-linux-gnu-g++   -v -o CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake-3.25/Modules/CMakeCXXCompilerABI.cpp]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/usr/bin/c++]
+  ignore line: [COLLECT_GCC=/usr/bin/aarch64-linux-gnu-g++]
   ignore line: [Target: aarch64-linux-gnu]
   ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c ada c++ go d fortran objc obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=aarch64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=aarch64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu]
   ignore line: [Thread model: posix]
   ignore line: [gcc version 7.5.0 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) ]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64']
-  ignore line: [ /usr/lib/gcc/aarch64-linux-gnu/7/cc1plus -quiet -v -imultiarch aarch64-linux-gnu -D_GNU_SOURCE /usr/local/share/cmake-3.25/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mlittle-endian -mabi=lp64 -auxbase-strip CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/cc7DKUku.s]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64']
+  ignore line: [ /usr/lib/gcc/aarch64-linux-gnu/7/cc1plus -quiet -v -imultiarch aarch64-linux-gnu -D_GNU_SOURCE /usr/local/share/cmake-3.25/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mlittle-endian -mabi=lp64 -auxbase-strip CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/ccPyEdyz.s]
   ignore line: [GNU C++14 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) version 7.5.0 (aarch64-linux-gnu)]
   ignore line: [	compiled by GNU C version 7.5.0  GMP version 6.1.2  MPFR version 4.0.1  MPC version 1.1.0  isl version isl-0.19-GMP]
   ignore line: []
@@ -349,17 +349,17 @@ Parsed CXX implicit link information from above output:
   ignore line: []
   ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
   ignore line: [Compiler executable checksum: 267235b6617dadf512d9def64c54895c]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64']
-  ignore line: [ as -v -EL -mabi=lp64 -o CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o /tmp/cc7DKUku.s]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64']
+  ignore line: [ as -v -EL -mabi=lp64 -o CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccPyEdyz.s]
   ignore line: [GNU assembler version 2.30 (aarch64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.30]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64']
-  ignore line: [Linking CXX executable cmTC_9c8fb]
-  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9c8fb.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c++  -v -rdynamic CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_9c8fb ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64']
+  ignore line: [Linking CXX executable cmTC_71864]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_71864.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/aarch64-linux-gnu-g++  -v -rdynamic CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_71864 ]
   ignore line: [Using built-in specs.]
-  ignore line: [COLLECT_GCC=/usr/bin/c++]
+  ignore line: [COLLECT_GCC=/usr/bin/aarch64-linux-gnu-g++]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper]
   ignore line: [Target: aarch64-linux-gnu]
   ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 7.5.0-3ubuntu1~18.04' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c ada c++ go d fortran objc obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=aarch64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-multiarch --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=aarch64-linux-gnu --host=aarch64-linux-gnu --target=aarch64-linux-gnu]
@@ -367,13 +367,13 @@ Parsed CXX implicit link information from above output:
   ignore line: [gcc version 7.5.0 (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/aarch64-linux-gnu/7/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib/:/lib/aarch64-linux-gnu/:/lib/../lib/:/usr/lib/aarch64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/aarch64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_9c8fb' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64']
-  link line: [ /usr/lib/gcc/aarch64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccNCO1ky.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_9c8fb /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/aarch64-linux-gnu/7 -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/7/../../.. CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_71864' '-shared-libgcc' '-mlittle-endian' '-mabi=lp64']
+  link line: [ /usr/lib/gcc/aarch64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccz5EBSD.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib/ld-linux-aarch64.so.1 -X -EL -maarch64linux --fix-cortex-a53-843419 -pie -z now -z relro -o cmTC_71864 /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/aarch64-linux-gnu/7 -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7/../../../../lib -L/lib/aarch64-linux-gnu -L/lib/../lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/aarch64-linux-gnu/7/../../.. CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/aarch64-linux-gnu/7/crtendS.o /usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/aarch64-linux-gnu/7/collect2] ==> ignore
     arg [-plugin] ==> ignore
     arg [/usr/lib/gcc/aarch64-linux-gnu/7/liblto_plugin.so] ==> ignore
     arg [-plugin-opt=/usr/lib/gcc/aarch64-linux-gnu/7/lto-wrapper] ==> ignore
-    arg [-plugin-opt=-fresolution=/tmp/ccNCO1ky.res] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccz5EBSD.res] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
     arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
     arg [-plugin-opt=-pass-through=-lc] ==> ignore
@@ -394,7 +394,7 @@ Parsed CXX implicit link information from above output:
     arg [-znow] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_9c8fb] ==> ignore
+    arg [cmTC_71864] ==> ignore
     arg [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o] ==> obj [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/Scrt1.o]
     arg [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o] ==> obj [/usr/lib/gcc/aarch64-linux-gnu/7/../../../aarch64-linux-gnu/crti.o]
     arg [/usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o] ==> obj [/usr/lib/gcc/aarch64-linux-gnu/7/crtbeginS.o]
@@ -406,7 +406,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/usr/lib/aarch64-linux-gnu] ==> dir [/usr/lib/aarch64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/aarch64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/aarch64-linux-gnu/7/../../..]
-    arg [CMakeFiles/cmTC_9c8fb.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_71864.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -434,16 +434,16 @@ Parsed CXX implicit link information from above output:
 
 
 Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD succeeded with the following output:
-Change Dir: /home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-ZRW4ea
+Change Dir: /home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-wE6eoe
 
-Run Build Command(s):/usr/bin/make -f Makefile cmTC_7d16a/fast && /usr/bin/make  -f CMakeFiles/cmTC_7d16a.dir/build.make CMakeFiles/cmTC_7d16a.dir/build
-make[1]: Entering directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-ZRW4ea'
-Building C object CMakeFiles/cmTC_7d16a.dir/src.c.o
-/usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -fPIC  -o CMakeFiles/cmTC_7d16a.dir/src.c.o -c /home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-ZRW4ea/src.c
-Linking C executable cmTC_7d16a
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7d16a.dir/link.txt --verbose=1
-/usr/bin/cc -fPIC  -pthread  CMakeFiles/cmTC_7d16a.dir/src.c.o -o cmTC_7d16a 
-make[1]: Leaving directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-ZRW4ea'
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_57c5d/fast && /usr/bin/make  -f CMakeFiles/cmTC_57c5d.dir/build.make CMakeFiles/cmTC_57c5d.dir/build
+make[1]: Entering directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-wE6eoe'
+Building C object CMakeFiles/cmTC_57c5d.dir/src.c.o
+/usr/bin/aarch64-linux-gnu-gcc -DCMAKE_HAVE_LIBC_PTHREAD  -fPIC  -o CMakeFiles/cmTC_57c5d.dir/src.c.o -c /home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-wE6eoe/src.c
+Linking C executable cmTC_57c5d
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_57c5d.dir/link.txt --verbose=1
+/usr/bin/aarch64-linux-gnu-gcc -fPIC  -pthread  CMakeFiles/cmTC_57c5d.dir/src.c.o -o cmTC_57c5d 
+make[1]: Leaving directory '/home/nvidia/workspace_cy/Payload-SDK/build/CMakeFiles/CMakeScratch/TryCompile-wE6eoe'
 
 
 Source file was:

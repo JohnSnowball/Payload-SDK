@@ -1,0 +1,30 @@
+'Logs/latest.log' -> 'DJI_0002_20240326_18-16-41.log'
+[32m[0.007][core]-[Info]-[DjiCore_Init:101) Payload SDK Version : V3.8.0-beta.0-build.1929 [0m
+[31m[2.014][linker]-[Error]-[DjiProtocol_sdkUnpack:228) protocol frame crc16 error:0xCF86 0xDB8B [0m
+[32m[2.350][adapter]-[Info]-[DjiAccessAdapter_Init:212) Try identify UART0 connection failed. Probably because SDK adapter or aircraft not finish init or UART connect error. [0m
+[32m[3.295][adapter]-[Info]-[DjiAccessAdapter_Init:228) Identify aircraft series is Matrice 350 Series [0m
+[32m[3.295][adapter]-[Info]-[DjiAccessAdapter_Init:261) Identify mount position type is Extension Port Type [0m
+[32m[3.306][adapter]-[Info]-[DjiAccessAdapter_Init:362) Identity uart0 baudrate is 230400 bps [0m
+[32m[5.637][adapter]-[Info]-[DjiPayloadNegotiate_Init:219) Waiting payload negotiate finish. [0m
+[32m[8.720][adapter]-[Info]-[DjiPayloadNegotiate_Init:219) Waiting payload negotiate finish. [0m
+[32m[11.598][core]-[Info]-[DjiIdentityVerify_UpdatePolicy:474) Updating dji sdk policy file... [0m
+[32m[12.598][core]-[Info]-[DjiIdentityVerify_UpdatePolicy:482) Update dji sdk policy file successfully [0m
+[32m[12.621][core]-[Info]-[DjiCore_Init:169) Identify AircraftType = Matrice 350 RTK, MountPosition = Extension Port, SdkAdapterType = None [0m
+[31m[12.637][gimbal]-[Error]-[DjiGimbal_Init:205) Can't support this function [0m
+[31m[12.637][user]-[Error]-[DjiTest_GimbalStartService:154) init gimbal module error: 0x000000E0 [0m
+[31m[12.637][user]-[Error]-[DjiUser_ApplicationStart:316) psdk gimbal init error [0m
+[32m[13.140][user]-[Info]-[SetVolume:580) Set widget speaker volume: 60 [0m
+[33m[13.140][user]-[Warn]-[SetVolume:598) No audio device found, please add audio device and init speaker volume here!!! [0m
+[32m[18.642][core]-[Info]-[DjiCore_ApplicationStart:226) Start dji sdk application [0m
+[32m[18.642][user]-[Info]-[DjiUser_ApplicationStart:363) Application start. [0m
+
+| Available commands:                                                                              |
+| [0] Fc subscribe sample - subscribe quaternion and gps data                                      |
+| [1] Flight controller sample - you can control flying by PSDK                                    |
+| [2] Hms info manager sample - get health manger system info by language                          |
+| [a] Gimbal manager sample - you can control gimbal by PSDK                                       |
+| [c] Camera stream view sample - display the camera video stream                                  |
+| [d] Stereo vision view sample - display the stereo image                                         |
+| [e] Run camera manager sample - you can test camera's functions interactively                    |
+| [f] Start rtk positioning sample - you can receive rtk rtcm data when rtk signal is ok           |
+

@@ -7,11 +7,11 @@ C_DEFINES = -DFFMPEG_INSTALLED -DLIBUSB_INSTALLED -DOPEN_CV_INSTALLED -DOPEN_CV_
 
 C_INCLUDES = -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c++/platform/linux/manifold2/../../../module_sample -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c++/platform/linux/manifold2/../../../../sample_c/module_sample -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c++/platform/linux/manifold2/../common -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c++/platform/linux/manifold2/../manifold2/application -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c++/platform/linux/manifold2/../../../../../psdk_lib/include -isystem /usr/local/include/opencv4
 
-C_FLAGS = -pthread -std=gnu99
+C_FLAGS = -pthread -std=gnu99 -g
 
 CXX_DEFINES = -DFFMPEG_INSTALLED -DLIBUSB_INSTALLED -DOPEN_CV_INSTALLED -DOPEN_CV_VERSION_4 -DPLATFORM_ARCH_aarch64=1 -DSYSTEM_ARCH_LINUX -D_GNU_SOURCE
 
 CXX_INCLUDES = -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c++/platform/linux/manifold2/../../../module_sample -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c++/platform/linux/manifold2/../../../../sample_c/module_sample -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c++/platform/linux/manifold2/../common -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c++/platform/linux/manifold2/../manifold2/application -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c++/platform/linux/manifold2/../../../../../psdk_lib/include -isystem /usr/local/include/opencv4
 
-CXX_FLAGS = -std=c++11 -pthread
+CXX_FLAGS = -std=c++11 -pthread -g
 

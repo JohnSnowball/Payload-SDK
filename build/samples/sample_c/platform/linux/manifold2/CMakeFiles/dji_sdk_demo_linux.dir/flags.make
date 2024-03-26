@@ -6,5 +6,5 @@ C_DEFINES = -DLIBUSB_INSTALLED -DPLATFORM_ARCH_aarch64=1 -DSYSTEM_ARCH_LINUX -D_
 
 C_INCLUDES = -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c/platform/linux/manifold2/../../../module_sample -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c/platform/linux/manifold2/../common -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c/platform/linux/manifold2/../manifold2/application -I/home/nvidia/workspace_cy/Payload-SDK/samples/sample_c/platform/linux/manifold2/../../../../../psdk_lib/include
 
-C_FLAGS = -pthread -std=gnu99
+C_FLAGS = -pthread -std=gnu99 -g
 

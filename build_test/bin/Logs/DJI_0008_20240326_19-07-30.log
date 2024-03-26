@@ -1,0 +1,286 @@
+[0.008][core]-[Info]-[DjiCore_Init:101) Payload SDK Version : V3.8.0-beta.0-build.1929
+[0.010][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[0.010][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[0.010][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	0       
+[0.010][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	0       
+[0.021][linker]-[Debug]-[DjiLinker_Init:128) init linker success, protocol:2, channelId:0
+[0.021][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.042][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.062][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.082][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.102][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.123][linker]-[Debug]-[DjiLinker_DeInit:170) deinit linker success, protocol:2, channelId:0
+[0.130][linker]-[Debug]-[DjiLinker_Init:128) init linker success, protocol:2, channelId:0
+[0.130][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.150][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.171][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.191][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.211][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.232][linker]-[Debug]-[DjiLinker_DeInit:170) deinit linker success, protocol:2, channelId:0
+[0.239][linker]-[Debug]-[DjiLinker_Init:128) init linker success, protocol:2, channelId:0
+[0.239][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.249][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.249][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.249][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.249][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0300->0x0A06 0x4900
+[0.249][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.253][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.253][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.257][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.259][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.267][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.267][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.267][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.267][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.273][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.273][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.276][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.279][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.289][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.289][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.289][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.289][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0300->0x0A06 0x221B
+[0.289][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.293][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.293][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.297][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.299][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.307][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.308][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.308][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.308][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.313][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.314][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.316][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.320][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.340][linker]-[Debug]-[DjiLinker_DeInit:170) deinit linker success, protocol:2, channelId:0
+[0.348][linker]-[Debug]-[DjiLinker_Init:128) init linker success, protocol:2, channelId:0
+[0.348][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.368][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.388][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.408][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.428][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.449][linker]-[Debug]-[DjiLinker_DeInit:170) deinit linker success, protocol:2, channelId:0
+[0.458][linker]-[Debug]-[DjiLinker_Init:128) init linker success, protocol:2, channelId:0
+[0.458][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.479][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.499][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.520][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.541][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.562][linker]-[Debug]-[DjiLinker_DeInit:170) deinit linker success, protocol:2, channelId:0
+[0.570][linker]-[Debug]-[DjiLinker_Init:128) init linker success, protocol:2, channelId:0
+[0.571][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.591][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.612][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.633][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.653][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0507->0x0503 0x03FD
+[0.674][linker]-[Debug]-[DjiLinker_DeInit:170) deinit linker success, protocol:2, channelId:0
+[0.681][linker]-[Debug]-[DjiLinker_Init:128) init linker success, protocol:2, channelId:0
+[0.681][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.701][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.721][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.741][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.761][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.782][linker]-[Debug]-[DjiLinker_DeInit:170) deinit linker success, protocol:2, channelId:0
+[0.789][linker]-[Debug]-[DjiLinker_Init:128) init linker success, protocol:2, channelId:0
+[0.789][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.789][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0300->0x0A06 0x221B
+[0.789][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.793][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.793][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.796][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.809][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.809][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.809][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.809][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0300->0x0A06 0x03FD
+[0.809][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.809][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.813][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.813][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.816][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.829][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.837][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.837][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.837][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.837][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0300->0x0A06 0x03FD
+[0.837][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0300->0x0A06 0x036C
+[0.838][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.838][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.838][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.838][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.850][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.850][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.850][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.850][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.850][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0300->0x0A06 0x03FD
+[0.850][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0300->0x0A06 0x4900
+[0.850][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.853][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.853][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.856][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.870][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.873][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.873][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.873][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.873][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0300->0x0A06 0x03FD
+[0.873][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0300->0x0100 0x0405
+[0.873][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.874][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.874][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.876][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.889][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.890][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.890][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.890][linker]-[Debug]-[DjiLinker_DeInit:170) deinit linker success, protocol:2, channelId:0
+[0.890][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0300->0x0A06 0x03FD
+[0.890][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0300->0x0A06 0x221B
+[0.890][linker]-[Debug]-[DjiProtocol_v1Unpack:213) V1-Recv: 0x0306->0x0A06 0x03C1
+[0.898][linker]-[Debug]-[DjiLinker_Init:128) init linker success, protocol:2, channelId:0
+[0.898][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.919][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0300 0x03FD
+[0.929][linker]-[Debug]-[DjiLinker_DeInit:170) deinit linker success, protocol:2, channelId:0
+[0.929][adapter]-[Info]-[DjiAccessAdapter_Init:228) Identify aircraft series is Matrice 350 Series
+[0.929][adapter]-[Info]-[DjiAccessAdapter_Init:261) Identify mount position type is Extension Port Type
+[0.929][linker]-[Debug]-[DjiCommand_Init:158) config list channel id:2
+[0.937][linker]-[Debug]-[DjiLinker_Init:128) init linker success, protocol:2, channelId:0
+[0.937][linker]-[Debug]-[DjiCommand_Init:167) add linker node count:1
+[0.937][adapter]-[Info]-[DjiAccessAdapter_Init:362) Identity uart0 baudrate is 460800 bps
+[0.937][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[0.937][linker]-[Debug]-[DjiCommand_SendAsync:436) Max wait ack item count is 32.
+[1.097][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[1.097][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[1.097][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	0       
+[1.097][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	1       	1       
+[1.097][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	0       	0       
+[1.938][linker]-[Warn]-[DjiCommand_SendAsyncHandle:894) Command async send retry: index = 0, retryTimes = 3, cmdSet = 0, cmdId = 0
+[1.939][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[2.175][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[2.175][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[2.175][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	0       
+[2.175][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	1       	1       
+[2.175][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	1       
+[2.939][linker]-[Warn]-[DjiCommand_SendAsyncHandle:894) Command async send retry: index = 0, retryTimes = 2, cmdSet = 0, cmdId = 0
+[2.940][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[3.252][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[3.252][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[3.253][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	0       
+[3.253][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[3.254][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	1       
+[3.940][linker]-[Warn]-[DjiCommand_SendAsyncHandle:894) Command async send retry: index = 0, retryTimes = 1, cmdSet = 0, cmdId = 0
+[3.941][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[4.330][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[4.331][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[4.331][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	0       
+[4.331][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[4.332][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	1       
+[4.941][linker]-[Error]-[DjiCommand_SendAsyncHandle:906) Command async send error 0
+[4.942][linker]-[Error]-[DjiCommand_SendSync:489) sendSync callback timeout
+[4.942][adapter]-[Error]-[DjiPayloadNegotiate_CheckNegotiatorReadyState:434) Set comm param sync error:0x000000E1.
+[4.942][adapter]-[Info]-[DjiPayloadNegotiate_Init:165) Waiting for negotiator to be ready...
+[4.942][linker]-[Debug]-[DjiCommand_SendAsyncHandle:925) Timeout func deal about: 0 ms
+[5.420][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[5.421][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[5.421][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	1       	1       
+[5.422][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[5.423][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	2       	2       
+[5.942][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[6.502][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[6.502][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[6.503][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	1       
+[6.504][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	1       	1       
+[6.504][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	2       
+[6.943][linker]-[Warn]-[DjiCommand_SendAsyncHandle:894) Command async send retry: index = 0, retryTimes = 3, cmdSet = 0, cmdId = 0
+[6.943][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[7.577][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[7.578][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[7.578][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	1       
+[7.578][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[7.578][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	2       
+[7.944][linker]-[Warn]-[DjiCommand_SendAsyncHandle:894) Command async send retry: index = 0, retryTimes = 2, cmdSet = 0, cmdId = 0
+[7.945][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[8.650][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[8.650][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[8.650][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	1       
+[8.650][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[8.650][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	2       
+[8.945][linker]-[Warn]-[DjiCommand_SendAsyncHandle:894) Command async send retry: index = 0, retryTimes = 1, cmdSet = 0, cmdId = 0
+[8.945][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[9.719][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[9.719][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[9.719][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	1       
+[9.720][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[9.720][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	2       
+[9.946][linker]-[Error]-[DjiCommand_SendAsyncHandle:906) Command async send error 0
+[9.946][linker]-[Error]-[DjiCommand_SendSync:489) sendSync callback timeout
+[9.946][adapter]-[Error]-[DjiPayloadNegotiate_CheckNegotiatorReadyState:434) Set comm param sync error:0x000000E1.
+[9.946][adapter]-[Info]-[DjiPayloadNegotiate_Init:165) Waiting for negotiator to be ready...
+[9.946][linker]-[Debug]-[DjiCommand_SendAsyncHandle:925) Timeout func deal about: 0 ms
+[10.791][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[10.791][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[10.791][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	1       
+[10.791][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[10.791][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	2       
+[10.946][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[11.867][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[11.868][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[11.868][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	1       
+[11.869][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[11.869][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	0       	2       
+[11.947][linker]-[Warn]-[DjiCommand_SendAsyncHandle:894) Command async send retry: index = 0, retryTimes = 3, cmdSet = 0, cmdId = 0
+[11.947][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[12.948][linker]-[Warn]-[DjiCommand_SendAsyncHandle:894) Command async send retry: index = 0, retryTimes = 2, cmdSet = 0, cmdId = 0
+[12.949][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[12.955][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[12.956][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[12.956][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	1       	1       
+[12.957][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[12.957][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	2       	2       
+[13.949][linker]-[Warn]-[DjiCommand_SendAsyncHandle:894) Command async send retry: index = 0, retryTimes = 1, cmdSet = 0, cmdId = 0
+[13.950][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[14.030][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[14.031][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[14.031][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	1       
+[14.032][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[14.032][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	2       
+[14.950][linker]-[Error]-[DjiCommand_SendAsyncHandle:906) Command async send error 0
+[14.950][linker]-[Debug]-[DjiCommand_SendAsyncHandle:925) Timeout func deal about: 0 ms
+[14.950][linker]-[Error]-[DjiCommand_SendSync:489) sendSync callback timeout
+[14.950][adapter]-[Error]-[DjiPayloadNegotiate_CheckNegotiatorReadyState:434) Set comm param sync error:0x000000E1.
+[14.950][adapter]-[Info]-[DjiPayloadNegotiate_Init:165) Waiting for negotiator to be ready...
+[15.108][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[15.108][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[15.108][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	1       
+[15.108][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[15.108][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	2       
+[15.950][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[16.180][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[16.180][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[16.180][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	1       	1       
+[16.180][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[16.180][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	2       
+[16.951][linker]-[Warn]-[DjiCommand_SendAsyncHandle:894) Command async send retry: index = 0, retryTimes = 3, cmdSet = 0, cmdId = 0
+[16.951][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[17.261][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[17.261][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[17.261][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	1       
+[17.261][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[17.261][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	2       
+[17.952][linker]-[Warn]-[DjiCommand_SendAsyncHandle:894) Command async send retry: index = 0, retryTimes = 2, cmdSet = 0, cmdId = 0
+[17.952][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[18.336][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[18.336][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[18.336][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	1       	1       
+[18.336][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	0       	1       
+[18.336][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	2       
+[18.953][linker]-[Warn]-[DjiCommand_SendAsyncHandle:894) Command async send retry: index = 0, retryTimes = 1, cmdSet = 0, cmdId = 0
+[18.953][linker]-[Debug]-[DjiProtocol_v1Pack:122) V1-Send: 0x0A06->0x0701 0x0000
+[19.411][utils]-[Debug]-[DjiCore_RootTask:131) work execution time:
+[19.411][utils]-[Debug]-[DjiCore_RootTask:132) name	                execution time (ms)	  max execution time (ms)
+[19.412][utils]-[Debug]-[DjiCore_RootTask:134) recorderWork                    	0       	1       
+[19.412][utils]-[Debug]-[DjiCore_RootTask:134) flowControllerTask              	1       	1       
+[19.412][utils]-[Debug]-[DjiCore_RootTask:134) commandTask                     	1       	2       
+[19.954][linker]-[Error]-[DjiCommand_SendAsyncHandle:906) Command async send error 0
+[19.954][linker]-[Error]-[DjiCommand_SendSync:489) sendSync callback timeout
+[19.954][adapter]-[Error]-[DjiPayloadNegotiate_CheckNegotiatorReadyState:434) Set comm param sync error:0x000000E1.
+[19.954][adapter]-[Info]-[DjiPayloadNegotiate_Init:165) Waiting for negotiator to be ready...
+[19.954][linker]-[Debug]-[DjiCommand_SendAsyncHandle:925) Timeout func deal about: 0 ms

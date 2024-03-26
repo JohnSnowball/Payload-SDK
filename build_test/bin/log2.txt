@@ -1,0 +1,548 @@
+'Logs/latest.log' -> 'DJI_0005_20240326_19-02-24.log'
+[32m[0.006][core]-[Info]-[DjiCore_Init:101) Payload SDK Version : V3.8.0-beta.0-build.1929 [0m
+[32m[0.879][adapter]-[Info]-[DjiAccessAdapter_Init:228) Identify aircraft series is Matrice 350 Series [0m
+[32m[0.879][adapter]-[Info]-[DjiAccessAdapter_Init:261) Identify mount position type is Extension Port Type [0m
+[32m[0.888][adapter]-[Info]-[DjiAccessAdapter_Init:362) Identity uart0 baudrate is 230400 bps [0m
+[32m[3.625][adapter]-[Info]-[DjiPayloadNegotiate_Init:219) Waiting payload negotiate finish. [0m
+[32m[6.706][adapter]-[Info]-[DjiPayloadNegotiate_Init:219) Waiting payload negotiate finish. [0m
+[32m[9.507][core]-[Info]-[DjiIdentityVerify_UpdatePolicy:474) Updating dji sdk policy file... [0m
+[32m[10.507][core]-[Info]-[DjiIdentityVerify_UpdatePolicy:482) Update dji sdk policy file successfully [0m
+[32m[10.524][core]-[Info]-[DjiCore_Init:169) Identify AircraftType = Matrice 350 RTK, MountPosition = Extension Port, SdkAdapterType = None [0m
+[31m[10.562][gimbal]-[Error]-[DjiGimbal_Init:205) Can't support this function [0m
+[31m[10.562][user]-[Error]-[DjiTest_GimbalStartService:154) init gimbal module error: 0x000000E0 [0m
+[31m[10.562][user]-[Error]-[DjiUser_ApplicationStart:316) psdk gimbal init error [0m
+[32m[11.065][user]-[Info]-[SetVolume:580) Set widget speaker volume: 60 [0m
+[33m[11.065][user]-[Warn]-[SetVolume:598) No audio device found, please add audio device and init speaker volume here!!! [0m
+[32m[16.566][core]-[Info]-[DjiCore_ApplicationStart:226) Start dji sdk application [0m
+[32m[16.566][user]-[Info]-[DjiUser_ApplicationStart:363) Application start. [0m
+
+| Available commands:                                                                              |
+| [0] Fc subscribe sample - subscribe quaternion and gps data                                      |
+| [1] Flight controller sample - you can control flying by PSDK                                    |
+| [2] Hms info manager sample - get health manger system info by language                          |
+| [a] Gimbal manager sample - you can control gimbal by PSDK                                       |
+| [c] Camera stream view sample - display the camera video stream                                  |
+| [d] Stereo vision view sample - display the stereo image                                         |
+| [e] Run camera manager sample - you can test camera's functions interactively                    |
+| [f] Start rtk positioning sample - you can receive rtk rtcm data when rtk signal is ok           |
+
+
+| Available commands:                                                                              |
+| [0] Flight controller sample - control flying with keyboard                                      |
+| [1] Flight controller sample - take off landing                                                  |
+| [2] Flight controller sample - take off position ctrl landing                                    |
+| [3] Flight controller sample - take off go home force landing                                    |
+| [4] Flight controller sample - take off velocity ctrl landing                                    |
+| [5] Flight controller sample - arrest flying                                                     |
+| [6] Flight controller sample - set get parameters                                                |
+| [7] Waypoint 2.0 sample - run airline mission by settings (only support on M300 RTK)             |
+| [8] Waypoint 3.0 sample - run airline mission by kmz file (not support on M300 RTK)              |
+| [9] Interest point sample - run interest point mission by settings (only support on M3E/M3T)     |
+| [s] SAV sample                                                                                 |
+| [l] control and logger sample                                                                    |
+
+[32m[19.667][flight]-[Info]-[DjiFlightController_RegisterLinkerObj_M350:138) Init M350 flight controller linker successfully. [0m
+main task is running.
+[33m[19.963][flight]-[Warn]-[DjiFlightController_RegJoystickCtrlAuthorityEventCallback:674) Not support on this aircraft type. [0m
+main task is running.
+[32m[20.964][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945026 microsecond 650059177. [0m
+[32m[20.964][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[20.964][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945021 microsecond 650054231. [0m
+[32m[20.964][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[20.964][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945006 microsecond 650039202. [0m
+[32m[20.964][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[20.964][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945006 microsecond 650039202. [0m
+[32m[20.964][user]-[Info]-[fcontrol_loop:2218) Obtain joystick control authority. [0m
+[32m[20.964][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[20.964][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945006 microsecond 650039202. [0m
+[32m[20.964][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[20.964][user]-[Info]-[logger_loop:2006) 100 logger loops take 1 microsecond [0m
+[32m[20.984][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945046 microsecond 650079178. [0m
+[32m[20.984][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[20.984][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945046 microsecond 650079193. [0m
+[32m[20.984][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[20.984][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945026 microsecond 650059204. [0m
+[32m[20.984][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[20.984][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945026 microsecond 650059204. [0m
+[32m[20.984][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[20.984][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945026 microsecond 650059204. [0m
+[32m[20.984][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.004][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945066 microsecond 650099188. [0m
+[32m[21.004][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.004][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945061 microsecond 650094198. [0m
+[32m[21.004][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.004][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945046 microsecond 650079205. [0m
+[32m[21.004][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.004][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945046 microsecond 650079205. [0m
+[32m[21.004][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.004][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945046 microsecond 650079205. [0m
+[32m[21.004][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.024][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945086 microsecond 650119179. [0m
+[32m[21.024][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.024][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945086 microsecond 650119193. [0m
+[32m[21.024][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.024][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945086 microsecond 650119206. [0m
+[32m[21.024][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.024][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945086 microsecond 650119206. [0m
+[32m[21.024][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.024][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945086 microsecond 650119206. [0m
+[32m[21.024][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.044][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945096 microsecond 650129188. [0m
+[32m[21.045][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.045][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945101 microsecond 650134197. [0m
+[32m[21.045][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.045][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945086 microsecond 650119206. [0m
+[32m[21.045][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.045][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945086 microsecond 650119206. [0m
+[32m[21.045][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.045][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945086 microsecond 650119206. [0m
+[32m[21.045][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.065][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945116 microsecond 650149186. [0m
+[32m[21.065][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.065][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945121 microsecond 650154223. [0m
+[32m[21.065][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.065][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945106 microsecond 650139204. [0m
+[32m[21.065][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.065][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945106 microsecond 650139204. [0m
+[32m[21.065][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.065][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945106 microsecond 650139204. [0m
+[32m[21.065][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.085][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945146 microsecond 650179170. [0m
+[32m[21.085][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.085][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945146 microsecond 650179184. [0m
+[32m[21.085][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.085][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945146 microsecond 650179197. [0m
+[32m[21.085][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.085][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945146 microsecond 650179197. [0m
+[32m[21.085][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.085][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945146 microsecond 650179197. [0m
+[32m[21.085][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.105][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945166 microsecond 650199184. [0m
+[32m[21.105][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.105][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945166 microsecond 650199198. [0m
+[32m[21.105][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.105][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945146 microsecond 650179197. [0m
+[32m[21.105][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.105][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945146 microsecond 650179197. [0m
+[32m[21.105][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.105][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945146 microsecond 650179197. [0m
+[32m[21.105][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.125][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945186 microsecond 650219179. [0m
+[32m[21.125][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.125][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945186 microsecond 650219194. [0m
+[32m[21.125][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.125][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945166 microsecond 650199211. [0m
+[32m[21.125][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.125][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945166 microsecond 650199211. [0m
+[32m[21.125][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.125][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945166 microsecond 650199211. [0m
+[32m[21.125][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.145][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945196 microsecond 650229177. [0m
+[32m[21.145][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.145][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945201 microsecond 650234198. [0m
+[32m[21.145][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.145][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945186 microsecond 650219206. [0m
+[32m[21.145][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.145][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945186 microsecond 650219206. [0m
+[32m[21.145][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.145][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945186 microsecond 650219206. [0m
+[32m[21.145][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.165][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945226 microsecond 650259184. [0m
+[32m[21.165][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.165][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945226 microsecond 650259199. [0m
+[32m[21.165][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.165][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945226 microsecond 650259211. [0m
+[32m[21.166][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.166][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945226 microsecond 650259211. [0m
+[32m[21.166][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.166][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945226 microsecond 650259211. [0m
+[32m[21.166][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.186][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945246 microsecond 650279182. [0m
+[32m[21.186][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.186][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945251 microsecond 650284201. [0m
+[32m[21.186][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.186][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945246 microsecond 650279209. [0m
+[32m[21.186][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.186][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945246 microsecond 650279209. [0m
+[32m[21.186][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.186][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945246 microsecond 650279209. [0m
+[32m[21.186][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.206][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945266 microsecond 650299170. [0m
+[32m[21.206][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.206][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945266 microsecond 650299185. [0m
+[32m[21.206][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.206][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945246 microsecond 650279209. [0m
+[32m[21.206][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.206][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945246 microsecond 650279209. [0m
+[32m[21.206][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.206][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945246 microsecond 650279209. [0m
+[32m[21.206][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.226][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945286 microsecond 650319168. [0m
+[32m[21.226][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.226][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945291 microsecond 650324206. [0m
+[32m[21.226][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.226][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945286 microsecond 650319195. [0m
+[32m[21.226][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.226][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945286 microsecond 650319195. [0m
+[32m[21.226][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.226][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945286 microsecond 650319195. [0m
+[32m[21.226][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.246][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945296 microsecond 650329180. [0m
+[32m[21.246][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.246][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945301 microsecond 650334190. [0m
+[32m[21.246][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.246][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945286 microsecond 650319195. [0m
+[32m[21.246][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.246][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945286 microsecond 650319195. [0m
+[32m[21.246][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.246][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945286 microsecond 650319195. [0m
+[32m[21.246][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.266][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945326 microsecond 650359202. [0m
+[32m[21.266][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.266][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945326 microsecond 650359217. [0m
+[32m[21.266][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.266][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945326 microsecond 650359229. [0m
+[32m[21.266][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.266][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945326 microsecond 650359229. [0m
+[32m[21.266][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.266][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945326 microsecond 650359229. [0m
+[32m[21.266][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.287][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945346 microsecond 650379174. [0m
+[32m[21.287][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.287][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945351 microsecond 650384233. [0m
+[32m[21.287][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.287][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945346 microsecond 650379201. [0m
+[32m[21.287][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.287][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945346 microsecond 650379201. [0m
+[32m[21.287][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.287][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945346 microsecond 650379201. [0m
+[32m[21.287][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.307][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945366 microsecond 650399176. [0m
+[32m[21.307][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.307][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945366 microsecond 650399191. [0m
+[32m[21.307][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.307][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945366 microsecond 650399203. [0m
+[32m[21.307][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.307][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945366 microsecond 650399203. [0m
+[32m[21.307][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.307][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945366 microsecond 650399203. [0m
+[32m[21.307][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.327][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945386 microsecond 650419174. [0m
+[32m[21.327][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.327][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945386 microsecond 650419188. [0m
+[32m[21.327][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.327][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945386 microsecond 650419200. [0m
+[32m[21.327][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.327][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945386 microsecond 650419200. [0m
+[32m[21.327][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.327][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945386 microsecond 650419200. [0m
+[32m[21.327][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.347][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945396 microsecond 650429167. [0m
+[32m[21.347][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.347][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945401 microsecond 650434199. [0m
+[32m[21.347][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.347][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945386 microsecond 650419200. [0m
+[32m[21.347][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.347][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945386 microsecond 650419200. [0m
+[32m[21.347][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.347][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945386 microsecond 650419200. [0m
+[32m[21.347][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.367][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945426 microsecond 650459180. [0m
+[32m[21.367][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.367][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945426 microsecond 650459195. [0m
+[32m[21.367][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.367][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945426 microsecond 650459207. [0m
+[32m[21.367][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.367][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945426 microsecond 650459207. [0m
+[32m[21.367][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.367][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945426 microsecond 650459207. [0m
+[32m[21.367][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.388][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945446 microsecond 650479183. [0m
+[32m[21.388][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.388][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945446 microsecond 650479198. [0m
+[32m[21.388][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.388][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945446 microsecond 650479211. [0m
+[32m[21.388][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.388][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945446 microsecond 650479211. [0m
+[32m[21.388][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.388][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945446 microsecond 650479211. [0m
+[32m[21.388][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.408][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945466 microsecond 650499184. [0m
+[32m[21.408][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.408][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945471 microsecond 650504241. [0m
+[32m[21.408][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.408][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945466 microsecond 650499211. [0m
+[32m[21.408][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.408][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945466 microsecond 650499211. [0m
+[32m[21.408][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.408][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945466 microsecond 650499211. [0m
+[32m[21.408][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.428][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945486 microsecond 650519177. [0m
+[32m[21.428][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.428][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945491 microsecond 650524193. [0m
+[32m[21.428][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.428][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945486 microsecond 650519204. [0m
+[32m[21.428][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.428][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945486 microsecond 650519204. [0m
+[32m[21.428][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.428][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945486 microsecond 650519204. [0m
+[32m[21.428][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.448][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945496 microsecond 650529187. [0m
+[32m[21.448][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.448][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945501 microsecond 650534195. [0m
+[32m[21.448][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.448][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945486 microsecond 650519204. [0m
+[32m[21.448][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.448][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945486 microsecond 650519204. [0m
+[32m[21.448][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.448][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945486 microsecond 650519204. [0m
+[32m[21.448][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.468][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945526 microsecond 650559187. [0m
+[32m[21.468][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.468][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945526 microsecond 650559202. [0m
+[32m[21.468][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.468][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945526 microsecond 650559214. [0m
+[32m[21.468][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.468][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945526 microsecond 650559214. [0m
+[32m[21.468][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.468][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945526 microsecond 650559214. [0m
+[32m[21.468][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.488][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945546 microsecond 650579179. [0m
+[32m[21.488][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.488][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945546 microsecond 650579194. [0m
+[32m[21.488][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.488][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945546 microsecond 650579206. [0m
+[32m[21.488][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.488][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945546 microsecond 650579206. [0m
+[32m[21.488][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.488][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945546 microsecond 650579206. [0m
+[32m[21.488][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.509][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945576 microsecond 650609180. [0m
+[32m[21.509][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.509][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945571 microsecond 650604224. [0m
+[32m[21.509][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.509][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945566 microsecond 650599206. [0m
+[32m[21.509][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.509][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945566 microsecond 650599206. [0m
+[32m[21.509][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.509][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945566 microsecond 650599206. [0m
+[32m[21.509][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.529][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945596 microsecond 650629187. [0m
+[32m[21.529][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.529][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945591 microsecond 650624209. [0m
+[32m[21.529][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.529][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945586 microsecond 650619215. [0m
+[32m[21.529][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.529][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945586 microsecond 650619215. [0m
+[32m[21.529][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.529][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945586 microsecond 650619215. [0m
+[32m[21.529][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.549][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945596 microsecond 650629187. [0m
+[32m[21.549][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.549][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945601 microsecond 650634204. [0m
+[32m[21.549][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.549][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945586 microsecond 650619215. [0m
+[32m[21.549][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.549][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945586 microsecond 650619215. [0m
+[32m[21.549][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.549][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945586 microsecond 650619215. [0m
+[32m[21.549][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.569][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945626 microsecond 650659189. [0m
+[32m[21.569][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.569][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945631 microsecond 650664228. [0m
+[32m[21.569][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.569][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945626 microsecond 650659216. [0m
+[32m[21.569][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.569][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945626 microsecond 650659216. [0m
+[32m[21.569][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.569][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945626 microsecond 650659216. [0m
+[32m[21.569][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.589][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945656 microsecond 650689204. [0m
+[32m[21.589][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.589][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945656 microsecond 650689219. [0m
+[32m[21.589][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.589][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945646 microsecond 650679208. [0m
+[32m[21.589][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.589][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945646 microsecond 650679208. [0m
+[32m[21.589][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.589][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945646 microsecond 650679208. [0m
+[32m[21.589][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.609][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945676 microsecond 650709182. [0m
+[32m[21.609][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.609][user]-[Info]-[logger_loop:1971) timestamp: millisecond 4945676 microsecond 650709197. [0m
+[32m[21.609][user]-[Info]-[logger_loop:1972) acceleration: accx = -0.005 accy = -0.007 accz = -1.000.
+ [0m
+[32m[21.609][user]-[Info]-[logger_loop:1979) timestamp: millisecond 4945666 microsecond 650699209. [0m
+[32m[21.609][user]-[Info]-[logger_loop:1980) position: lat = 0.827272 lon = 0.149151 alt = 100.099998.
+ [0m
+[32m[21.609][user]-[Info]-[logger_loop:1986) timestamp: millisecond 4945666 microsecond 650699209. [0m
+[32m[21.609][user]-[Info]-[logger_loop:1987) velocity: velx = 0.000 vely = 0.000 velz = -0.000.
+ [0m
+[32m[21.609][user]-[Info]-[logger_loop:1996) timestamp: millisecond 4945666 microsecond 650699209. [0m
+[32m[21.610][user]-[Info]-[logger_loop:1998) RC stick: RCpitch = 0.00 RCroll = 0.00 RCyaw = 0.00 RCthr = 0.00 connected = 0.
+ [0m
+[32m[21.630][user]-[Info]-[logger_loop:1964) timestamp: millisecond 4945696 microsecond 650729180. [0m
+[32m[21.630][user]-[Info]-[logger_loop:1965) attitude: pitch = -0.41 roll = 0.47 yaw = -0.00.
+ [0m
+[32m[21.630][user]-[Info]-[logg

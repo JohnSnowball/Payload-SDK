@@ -332,6 +332,7 @@ T_DjiReturnCode SAV_FlightControlInit(void)
 
 
     returnCode = All_Topic_Init();
+    s_osalHandler->TaskSleepMs(1000);
     if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
         USER_LOG_ERROR("Error during data subscription, error code:0x%08llX", returnCode);
         return returnCode;
@@ -1804,6 +1805,25 @@ T_DjiReturnCode All_Topic_Init(void)
     */
     T_DjiReturnCode returnCode;
 
+
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_STATUS_FLIGHT,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_10_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic flight status failed, error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
+    returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_STATUS_DISPLAYMODE,
+                                                  DJI_DATA_SUBSCRIPTION_TOPIC_10_HZ,
+                                                  NULL);
+
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+        USER_LOG_ERROR("Subscribe topic display mode failed, error code:0x%08llX", returnCode);
+        return returnCode;
+    }
+
     returnCode = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_QUATERNION, DJI_DATA_SUBSCRIPTION_TOPIC_100_HZ,
                                                Sav_Quaternion_data_Callback);
     if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
@@ -1929,10 +1949,10 @@ static T_DjiReturnCode Sav_RC_stick_data_Callback(const uint8_t *data, uint16_t 
 void* logger_loop(void* arg)
 {
     T_DjiOsalHandler *osalHandler = DjiPlatform_GetOsalHandler();
-    uint32_t elapsedTimeInMs = 0;
-    uint32_t loopstartTimeInMs = 0;
-    uint32_t loopendTimeInMs = 0;
-    uint32_t iteration_times = 0;
+    uint64_t elapsedTimeInMs = 0;
+    uint64_t loopstartTimeInMs = 0;
+    uint64_t loopendTimeInMs = 0;
+    uint64_t iteration_times = 0;
     
     
     dji_f64_t pitch, yaw, roll;
@@ -1952,39 +1972,31 @@ void* logger_loop(void* arg)
 
     while(1){
 
-        osalHandler->GetTimeMs(&loopstartTimeInMs);
+        osalHandler->GetTimeUs(&loopstartTimeInMs);
         
 
-        pitch = (dji_f64_t) asinf(-2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q3 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q2) * 57.3;
+        pitch = (dji_f64_t) asinf(-2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q3 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q2) * 57.3f;
         roll = (dji_f64_t) atan2f(2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q3 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q1,
-                                -2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q1 - 2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q2 + 1) *57.3;
+                                -2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q1 - 2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q2 + 1) *57.3f;
         yaw = (dji_f64_t) atan2f(2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q2 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q3,
-                                -2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q2 - 2 * quat_pack->quaternion.q3 * quat_pack->quaternion.q3 + 1) *57.3;
-
-        USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", quat_pack->timestamp.millisecond, quat_pack->timestamp.microsecond);
-        USER_LOG_INFO("attitude: pitch = %.2f roll = %.2f yaw = %.2f.\r\n", pitch, roll, yaw);
+                                -2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q2 - 2 * quat_pack->quaternion.q3 * quat_pack->quaternion.q3 + 1) *57.3f;
+        USER_LOG_INFO("attitude: time_ms = %u; pitch = %.2f; roll = %.2f; yaw = %.2f.\r\n", quat_pack->timestamp.millisecond,pitch, roll, yaw);
 
 
-        acc_raw.x = acc_pack->acc.x;
-        acc_raw.y = acc_pack->acc.y;
-        acc_raw.z = acc_pack->acc.z;
-        USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", acc_pack->timestamp.millisecond, acc_pack->timestamp.microsecond);
-        USER_LOG_INFO("acceleration: accx = %.3f accy = %.3f accz = %.3f.\r\n", acc_raw.x, acc_raw.y, acc_raw.z);
-
-
-
-        pos_fused.latitude = pos_pack->pos.latitude;
-        pos_fused.longitude = pos_pack->pos.longitude;
+        acc_raw.x = 9.81f*acc_pack->acc.x;
+        acc_raw.y = 9.81f*acc_pack->acc.y;
+        acc_raw.z = 9.81f*acc_pack->acc.z;
+        USER_LOG_INFO("acceleration: time_ms = %u; accx = %.5f; accy = %.5f; accz = %.5f.\r\n", acc_pack->timestamp.millisecond,acc_raw.x,acc_raw.y,acc_raw.z);
+  
+        pos_fused.latitude = 100.0f*pos_pack->pos.latitude;
+        pos_fused.longitude = 100.0f*pos_pack->pos.longitude;
         pos_fused.altitude = pos_pack->pos.altitude;
-        USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", pos_pack->timestamp.millisecond, pos_pack->timestamp.microsecond);
-        USER_LOG_INFO("position: lat = %.6f lon = %.6f alt = %.6f.\r\n", pos_fused.latitude, pos_fused.longitude, pos_fused.altitude);
-
+        USER_LOG_INFO("position: time_ms = %u; lat = %.6f lon = %.6f alt = %.6f.\r\n", pos_pack->timestamp.millisecond, pos_fused.latitude,pos_fused.longitude,pos_fused.altitude);
 
         vel_fused.data.x = vel_pack->vel.data.x;
         vel_fused.data.y = vel_pack->vel.data.y;
         vel_fused.data.z = vel_pack->vel.data.z;
-        USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", vel_pack->timestamp.millisecond, vel_pack->timestamp.microsecond);
-        USER_LOG_INFO("velocity: velx = %.3f vely = %.3f velz = %.3f.\r\n", vel_fused.data.x, vel_fused.data.y, vel_fused.data.z);
+        USER_LOG_INFO("velocity: time_ms = %u; velx = %.3f vely = %.3f velz = %.3f.\r\n",vel_pack->timestamp.millisecond,vel_fused.data.x,vel_fused.data.y,vel_fused.data.z);
 
         rc_sticks_flag.pitch = rc_pack->rc.pitch;
         rc_sticks_flag.roll = rc_pack->rc.roll;
@@ -1993,20 +2005,16 @@ void* logger_loop(void* arg)
         rc_sticks_flag.flag.groundConnected = rc_pack->rc.flag.groundConnected;
         rc_sticks_flag.flag.skyConnected = rc_pack->rc.flag.skyConnected;
         rc_sticks_flag.flag.logicConnected = rc_pack->rc.flag.logicConnected;
-        USER_LOG_INFO("timestamp: millisecond %u microsecond %u.", rc_pack->timestamp.millisecond, rc_pack->timestamp.microsecond);
-        USER_LOG_INFO("RC stick: RCpitch = %.2f RCroll = %.2f RCyaw = %.2f RCthr = %.2f connected = %d.\r\n", 
-                            rc_sticks_flag.pitch, rc_sticks_flag.roll, rc_sticks_flag.yaw, rc_sticks_flag.throttle, rc_sticks_flag.flag.logicConnected);
+        USER_LOG_INFO("RC stick: time_ms = %u; RCpitch = %.2f RCroll = %.2f RCyaw = %.2f RCthr = %.2f connected = %d.\r\n ", rc_pack->timestamp.millisecond, 
+                        rc_sticks_flag.pitch, rc_sticks_flag.roll, rc_sticks_flag.yaw, rc_sticks_flag.throttle, rc_sticks_flag.flag.logicConnected);
 
 
-        iteration_times +=1;
-        osalHandler->GetTimeMs(&loopendTimeInMs);
-        elapsedTimeInMs += loopendTimeInMs - loopstartTimeInMs;
 
-        if(iteration_times%100 == 1){
-            USER_LOG_INFO("100 logger loops take %u microsecond", elapsedTimeInMs);
-        }
+        osalHandler->GetTimeUs(&loopendTimeInMs);
+        elapsedTimeInMs = loopendTimeInMs - loopstartTimeInMs;
+        USER_LOG_INFO("1 logger loop takes %u microsecond", elapsedTimeInMs);
 
-        osalHandler->TaskSleepMs(20);// how to eliminate repeated points in the log?
+        osalHandler->TaskSleepMs(10);// how to eliminate repeated points in the log?
     }
 
 }
@@ -2065,10 +2073,10 @@ void* fcontrol_loop(void* arg)
     T_DjiReturnCode returnCode;
 
     T_DjiOsalHandler *osalHandler = DjiPlatform_GetOsalHandler();
-    uint32_t elapsedTimeInMs = 0;
-    uint32_t loopstartTimeInMs = 0;
-    uint32_t loopendTimeInMs = 0;
-    uint32_t iteration_times = 0;
+    uint64_t elapsedTimeInMs = 0;
+    uint64_t loopstartTimeInMs = 0;
+    uint64_t loopendTimeInMs = 0;
+    uint64_t iteration_times = 0;
 
 
     dji_f64_t pitch, yaw, roll;
@@ -2107,7 +2115,7 @@ void* fcontrol_loop(void* arg)
 
     while(1){
 
-        osalHandler->GetTimeMs(&loopstartTimeInMs);
+        osalHandler->GetTimeUs(&loopstartTimeInMs);
 
         pitch = (dji_f64_t) asinf(-2 * quat_pack->quaternion.q1 * quat_pack->quaternion.q3 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q2) * 57.3;
         roll = (dji_f64_t) atan2f(2 * quat_pack->quaternion.q2 * quat_pack->quaternion.q3 + 2 * quat_pack->quaternion.q0 * quat_pack->quaternion.q1,
@@ -2161,8 +2169,8 @@ void* fcontrol_loop(void* arg)
             acc_average_filtered.x = 0.05f*acc_raw.x + 0.95f*acc_average_filtered.x;
             acc_average_filtered.y = 0.05f*acc_raw.y + 0.95f*acc_average_filtered.y;
             acc_average_filtered.z = 0.05f*acc_raw.z + 0.95f*acc_average_filtered.z;
-            USER_LOG_INFO("timestamp: millisecond %u.", loopstartTimeInMs);
-            USER_LOG_INFO("filtered acc: accx = %.3f accy = %.3f accz = %.3f.\r\n", acc_average_filtered.x, acc_average_filtered.y, acc_average_filtered.z);
+            USER_LOG_INFO("filtered acc: time_ms = %u; accx = %.6f; accy = %.6f; accz = %.6f.\r\n",loopstartTimeInMs, acc_average_filtered.x, acc_average_filtered.y, acc_average_filtered.z);
+
         }
         
 
@@ -2262,16 +2270,13 @@ void* fcontrol_loop(void* arg)
         }
 
         /*time record*/
-        iteration_times +=1;
-        osalHandler->GetTimeMs(&loopendTimeInMs);
-        elapsedTimeInMs += loopendTimeInMs - loopstartTimeInMs;
+        osalHandler->GetTimeUs(&loopendTimeInMs);
+        elapsedTimeInMs = loopendTimeInMs - loopstartTimeInMs;
+        USER_LOG_INFO("1 control loop takes %u microsecond", elapsedTimeInMs);
 
-        if(iteration_times%100 == 1){
-            USER_LOG_INFO("100 control loops take %u microsecond", elapsedTimeInMs);
-        }
         /*time record*/
 
-        osalHandler->TaskSleepMs(20);//try 20 -> 15 -> 10 -> 5 -> 2(?)
+        osalHandler->TaskSleepMs(5);//try 20 -> 15 -> 10 -> 5 -> 2(?)
 
     }
 
