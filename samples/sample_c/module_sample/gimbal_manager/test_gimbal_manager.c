@@ -68,7 +68,7 @@ static const T_DjiTestGimbalActionList s_rotationActionList[] =
 };
 
 /* Private functions declaration ---------------------------------------------*/
-
+/*modification test*/
 /* Exported functions definition ---------------------------------------------*/
 T_DjiReturnCode DjiTest_GimbalManagerRunSample(E_DjiMountPosition mountPosition, E_DjiGimbalMode gimbalMode)
 {
